@@ -8,7 +8,7 @@ public class ScrewBookstoreApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ScrewBookstoreApplication.class, args);
-        System.out.println("fagnyaohui1");
+        System.out.println("fagnyaohui");
     }
 
 }
