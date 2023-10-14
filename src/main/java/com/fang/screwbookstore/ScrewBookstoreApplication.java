@@ -8,7 +8,7 @@ public class ScrewBookstoreApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ScrewBookstoreApplication.class, args);
-        System.out.println("fagnyaohui 第一次修改");
+        System.out.println("fagnyaohui 第二次修改");
     }
 
 }
