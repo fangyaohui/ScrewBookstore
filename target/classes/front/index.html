@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>螺钉书店</title>
+    <!--1.导入Vue.js-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/navbar.css" />
+  </head>
+  <body>
+    <header>
+      <iframe
+        src="common/navbar.html"
+        frameborder="0"
+        heighe="100%"
+        width="100%"
+        scrolling="no"
+      ></iframe>
+    </header>
+
+    <main>
+      <!--轮播图 开始-->
+      <div class="recom">
+        <div class="recomWrap">
+          <div class="book" id="recommend_book_lunbo">
+            <div class="book_wrap" id="lunbotu">
+              <ul id="recommend_book_lunbo_ul">
+                  <li v-for="(name,path) in currentImages">{{ name }},{{ path }}</li>
+<!--                <li class="little">-->
+<!--                  <a href="" target="_blank" title="">-->
+<!--                    <img-->
+<!--                      src=""-->
+<!--                      title=""-->
+<!--                      alt=""-->
+<!--                      class="lazy"-->
+<!--                      style="-->
+<!--                        display: inline-block;-->
+<!--                        height: 168px;-->
+<!--                        width: 126px;-->
+<!--                        margin-top: 0px;-->
+<!--                      "-->
+<!--                    />-->
+<!--                  </a>-->
+<!--                  <span style="display: none"></span>-->
+<!--                </li>-->
+              </ul>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <!--轮播图 结束-->
+      <!--内容 开始-->
+      <div class="content">
+        <!--畅销图书 结束-->
+        <div class="pubBook">
+          <div class="conBigTitle">
+            <h2>出版图书</h2>
+            <p><a href="" target="_blank">小说</a>|</p>
+          </div>
+          <div class="show">
+            <s class="sign"></s>
+            <div class="showLeft">
+              <h3>
+                <a href="" title="宅中歌" target="_blank">宅中歌</a>
+              </h3>
+              <p class="author">作者: 白鹭成双</p>
+              <p class="introduce">
+                桃林落英纷，姻缘天注定；除却巫山云，唯伊最相宜。
+                花轿几回颠，郎君喜相迎；洞房花烛夜，百年好合愿。
+              </p>
+              <span>
+                <a
+                  href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;bid=11870329"
+                  target="_blank"
+                  title="宅中歌"
+                >
+                  <img
+                    src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_156,h_208,q_100/a5e10b24/group61/M00/21/22/CmQUOV1wn9GEOlMmAAAAAJKg8kc470575815.jpg?v=18zG1qo-&amp;t=CmQUOV6Ixg4."
+                    title="宅中歌"
+                    alt="宅中歌"
+                    class="bookCover lazy"
+                  />
+                </a>
+                <!-- <img
+                  src="//pweb.d.ireader.com/static/images/index/shadow.gif"
+                  alt="宅中歌"
+                  class="shadow"
+                /> -->
+              </span>
+            </div>
+            <ul class="showMid">
+              <li>
+                <a
+                  href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;bid=12044856"
+                  target="_blank"
+                  title="我亲爱的小竹马"
+                >
+                  <img
+                    src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_117,h_156,q_100/5e4e9e1c/group61/M00/62/F6/CmQUOV3qVe2EffyDAAAAAI3D7MA039740297.jpg?v=tENm0WUI&amp;t=CmQUOV5V20g."
+                    title="我亲爱的小竹马"
+                    alt="我亲爱的小竹马"
+                    class="lazy"
+                  />
+                </a>
+                <p class="bookName">
+                  <a
+                    href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;bid=12044856"
+                    title="我亲爱的小竹马"
+                    target="_blank"
+                    >我亲爱的小竹马</a
+                  >
+                </p>
+                <p>酒小七</p>
+              </li>
+              <!-- 4个循环 -->
+            </ul>
+            <div class="showRight">
+              <h3>
+                <s class="crown"></s><a href="" target="_blank">畅销榜</a>
+              </h3>
+              <ul>
+                <!-- 循环13次 -->
+                <li>
+                  <dl class="close">
+                    <dt>2</dt>
+                    <dd>
+                      <span class="bookName">
+                        <a
+                          href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;bid=11040512"
+                          title="活着"
+                          target="_blank"
+                          >活着</a
+                        >
+                      </span>
+                      <span class="num"><s></s>2377</span>
+                    </dd>
+                  </dl>
+                  <dl class="open">
+                    <dt>2</dt>
+                    <dd>
+                      <div>
+                        <span class="bookPic">
+                          <a
+                            href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;bid=11040512"
+                            target="_blank"
+                            title="活着"
+                          >
+                            <img
+                              src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_63,h_84,q_100/efa01d17/group6/M00/2B/41/CmQUOFcMj9CEBj_gAAAAAI1eU64427806210.jpg?v=pM2Jvx9M&amp;t=CmQUN16Is6s."
+                              title="活着"
+                              alt="活着"
+                              class="lazy"
+                            />
+                          </a>
+                        </span>
+                        <div class="bookCon">
+                          <p>
+                            <a
+                              href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;bid=11040512"
+                              title="活着"
+                              target="_blank"
+                              >活着</a
+                            >
+                          </p>
+                          <span class="num"><s></s>2377</span>
+                        </div>
+                      </div>
+                    </dd>
+                  </dl>
+                </li>
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!--畅销图书 结束-->
+
+        <!--特价图书 开始-->
+        <div class="dif_Area">
+          <div class="conBigTitle">
+            <h2>特价图书</h2>
+            <p>
+              <a
+                href="https://www.ireader.com/index.php?ca=booksort.index&amp;pid=10"
+                target="_blank"
+                >玄幻</a
+              >|
+              <a
+                href="https://www.ireader.com/index.php?ca=booksort.index&amp;pid=10&amp;cid=16"
+                target="_blank"
+                >奇幻</a
+              >|
+              <a
+                href="https://www.ireader.com/index.php?ca=booksort.index&amp;pid=10&amp;cid=19"
+                target="_blank"
+                >武侠</a
+              >|
+              <a
+                href="https://www.ireader.com/index.php?ca=booksort.index&amp;pid=10&amp;cid=22"
+                target="_blank"
+                >仙侠</a
+              >|
+              <a
+                href="https://www.ireader.com/index.php?ca=booksort.index&amp;pid=10"
+                target="_blank"
+                >更多</a
+              >
+            </p>
+          </div>
+          <div class="show">
+            <s class="sign"></s>
+            <div class="showLeft">
+              <h3>
+                <a
+                  href=""
+                  title="重生1999"
+                  target="_blank"
+                  >重生1999</a
+                >
+              </h3>
+              <p class="author">作者: 得遇良馨</p>
+              <p class="introduce">
+                重生黄金大时代，翻手云覆手雨，扶摇直上九万里！
+              </p>
+              <span>
+                <a
+                  href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;bid=12326633"
+                  target="_blank"
+                  title="重生1999"
+                >
+                  <img
+                    src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_156,h_208,q_100/05002b67/group61/M00/07/09/CmQUOV8tE56EV2BaAAAAAD_U_n4629607575.jpg?v=iOcNud3U&amp;t=CmQUOV8tE54."
+                    title="重生1999"
+                    alt="重生1999"
+                    class="bookCover lazy"
+                  />
+                </a>
+              </span>
+            </div>
+            <ul class="showMid">
+                <!-- 循环6次 -->
+              <li>
+                <h3>
+                  <a
+                    href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;bid=12299427"
+                    title="逆天神尊"
+                    target="_blank"
+                    >逆天神尊</a
+                  >
+                </h3>
+                <p class="name">
+                  <i>白云千</i>
+                  <!--<span>东方玄幻</span>-->
+                </p>
+                <p class="introduce">
+                  少年楚天，候府世子，天赋异禀，遭受暗算，沦为废人，且看他如何一步步，登天路，跨万古，破宿命，最终成就一代绝世强者。
+                </p>
+              </li>
+              
+            </ul>
+            <div class="showRight">
+              <h3>
+                <s class="crown"></s
+                ><a
+                  href="https://www.ireader.com/index.php?ca=bookrank.ranklist&amp;rankId=14886"
+                  target="_blank"
+                  >热销榜</a
+                >
+              </h3>
+              <ul>
+                <!-- 循环13次 -->
+                <li>
+                  <dl class="close">
+                    <dt>2</dt>
+                    <dd>
+                      <span class="bookName">
+                        <a
+                          href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;bid=12805581"
+                          title="龙王出狱"
+                          target="_blank"
+                          >龙王出狱</a
+                        >
+                      </span>
+                      <span class="num"><s></s>14856</span>
+                    </dd>
+                  </dl>
+                  <dl class="open">
+                    <dt>2</dt>
+                    <dd>
+                      <div>
+                        <span class="bookPic">
+                          <a
+                            href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;bid=12805581"
+                            target="_blank"
+                            title="龙王出狱"
+                          >
+                            <img
+                              src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_63,h_84,q_100/49621f26/group61/M00/83/D6/CmQUOWLo6IeECqfLAAAAABPASjo317265399.jpg?v=Y2wcf2et&amp;t=CmQUOWLo6Ic."
+                              title="龙王出狱"
+                              alt="龙王出狱"
+                              class="lazy"
+                            />
+                          </a>
+                        </span>
+                        <div class="bookCon">
+                          <p>
+                            <a
+                              href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;bid=12805581"
+                              title="龙王出狱"
+                              target="_blank"
+                              >龙王出狱</a
+                            >
+                          </p>
+                          <span class="num"><s></s>14856</span>
+                        </div>
+                      </div>
+                    </dd>
+                  </dl>
+                </li>
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!--特价图书 结束-->
+      </div>
+
+      <!-- <iframe src="common/end.html" frameborder="10" heighe="200" width="100%" scrolling="no" ></iframe> -->
+      <!-- <link rel="stylesheet" href="common/end.html"> -->
+    </main>
+
+    <iframe
+      src="common/end.html"
+      frameborder="10"
+      heighe="200"
+      width="100%"
+      scrolling="no"
+    ></iframe>
+  </body>
+
+<script>
+    var lunbotu = new Vue({
+        el:'#lunbotu',
+        data:{
+            images:[],
+            currentImages: [],
+            currentIndex: 0
+        },
+        created(){
+
+            axios.get("/front/index/getimage8",{
+                responseType : 'json'
+            }).then(res => {
+                console.log(res);
+                lunbotu.images = res.data;
+            }).catch(err =>{
+                console.log(err);
+            })
+
+            this.changeImages();
+
+            setInterval(() => {
+                this.changeImages();
+            }, 2000);
+        },
+        methods: {
+            changeImages() {
+                this.currentImages = [
+                    this.images[this.currentIndex % this.images.length],
+                    this.images[(this.currentIndex + 1) % this.images.length],
+                    this.images[(this.currentIndex + 2) % this.images.length],
+                    this.images[(this.currentIndex + 3) % this.images.length]
+                ];
+                this.currentIndex++;
+            },
+
+        }
+
+
+    })
+
+
+</script>
+
+</html>

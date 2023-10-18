@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/global.css">
+</head>
+<body>
+    
+<!-- 公共头部 开始 -->
+<div>
+    <div class="blankHead zwfl_head">
+        <div class="n1_header" style="box-shadow: none;">
+            <div class="n1_header_wrap">
+                <h1>
+                    <a href="../index.html"><img src="" alt="logo" title="螺钉书店"></a>
+                </h1>
+                <div class="n1_headerR">
+                    <ul class="n1_nav">
+                        <li class="current"><a href="">首页</a></li>
+                        <li><a href="">分类</a></li>
+                        <li><a href="">排行</a></li>
+                        <li><a href="">消息</a></li>
+                        <li><a href="">购物车</a></li>
+                        <li><a href="">我的书店</a></li>
+
+                    </ul>
+                    <div class="n1_search">
+                        <form method="get" action="" onsubmit="return false;" id="search_form" name="search_form">
+                        <input type="text" name="keyword" value="" placeholder="书名/作者名" autocomplete="off">
+                        <!-- class="big_search"-->
+                            <s id="btn_submit_search_form"></s>
+                        </form>
+                        <ul class="list" id="search_suggestion_box" style="display: none;"></ul>
+                    </div>
+                    <div class="n1_login">
+                        <a href=""><span class="n1_login_beffor" id="unlogin_box" style="display: block;">登录</span></a>
+                        <div class="n1_login_affer" id="login_box" style="display: none;">
+                            <a href=""><i></i><s></s></a>
+                            <ul>
+                                <!-- <li><a href="" title="我的图书"><s class="myBook"></s>我的图书</a></li> -->
+                                <li><a href="" title="设置"><s class="n1_recharge"></s>设置</a></li>
+                                <li><a href="" title="退出登录"><s class="quit"></s>退出</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 公共部分导航栏结束 -->
+<link type="text/css" rel="stylesheet" href="../css/index.css">
+
+</body>
+
+
+</html>
