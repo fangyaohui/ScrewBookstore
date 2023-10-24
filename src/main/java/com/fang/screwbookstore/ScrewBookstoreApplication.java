@@ -6,7 +6,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-//@ServletComponentScan
+@ServletComponentScan
 public class ScrewBookstoreApplication {
 
     public static void main(String[] args) {

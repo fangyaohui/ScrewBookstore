@@ -5,7 +5,10 @@
     <title>螺钉书店</title>
     <!--1.导入Vue.js-->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
-    <link rel="stylesheet" href="css/index.css" />
+<!--      2.导入axios.js-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+      <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/global.css" />
     <link rel="stylesheet" href="css/navbar.css" />
   </head>
@@ -25,26 +28,20 @@
       <div class="recom">
         <div class="recomWrap">
           <div class="book" id="recommend_book_lunbo">
+              <p style="font-size: 30px;font-weight: bold">推荐图书</p>
             <div class="book_wrap" id="lunbotu">
               <ul id="recommend_book_lunbo_ul">
-                  <li v-for="(name,path) in currentImages">{{ name }},{{ path }}</li>
-<!--                <li class="little">-->
-<!--                  <a href="" target="_blank" title="">-->
-<!--                    <img-->
-<!--                      src=""-->
-<!--                      title=""-->
-<!--                      alt=""-->
-<!--                      class="lazy"-->
-<!--                      style="-->
-<!--                        display: inline-block;-->
-<!--                        height: 168px;-->
-<!--                        width: 126px;-->
-<!--                        margin-top: 0px;-->
-<!--                      "-->
-<!--                    />-->
-<!--                  </a>-->
-<!--                  <span style="display: none"></span>-->
-<!--                </li>-->
+                  <li v-for="name in currentImages" class="little">
+                      <a href="#" target="_blank" :title=name.bookname>
+                          <img :src=name.imgpath :title=name.bookname :alt=name.bookname class="lazy" style="
+                           display: inline-block;
+                           height: 168px;
+                           width: 126px;
+                           margin-top: 0px;
+                      ">
+                      </a>
+                      <span style="display: none"></span>
+                  </li>
               </ul>
             </div>
 
@@ -55,11 +52,11 @@
 
       <!--轮播图 结束-->
       <!--内容 开始-->
-      <div class="content">
+      <div class="content" id="content">
         <!--畅销图书 结束-->
-        <div class="pubBook">
+        <div class="pubBook" id="pubBook">
           <div class="conBigTitle">
-            <h2>出版图书</h2>
+            <h2>热门图书</h2>
             <p><a href="" target="_blank">小说</a>|</p>
           </div>
           <div class="show">
@@ -352,25 +349,26 @@
             currentIndex: 0
         },
         created(){
-
-            axios.get("/front/index/getimage8",{
-                responseType : 'json'
-            }).then(res => {
-                if(res.code === '1'){
-                    console.log(res);
-                    lunbotu.images = res.data;
+            axios.post("/front/index/getimage8")
+                .then(res => {
+                // this.$message(res.data);
+                const { code } = res.data;
+                if(code === 1){
+                    this.images = res.data.data;
+                    console.log("success");
+                    this.changeImages();
                 }else{
+                    console.log("fail");
                     console.log(res.msg);
                 }
             }).catch(err =>{
+                console.log("error");
                 console.log(err);
             })
 
-            this.changeImages();
-
             setInterval(() => {
                 this.changeImages();
-            }, 2000);
+            }, 20000);
         },
         methods: {
             changeImages() {
@@ -384,8 +382,14 @@
             },
 
         }
+    })
 
+    var content = new Vue({
+        el: '#content',
+        data:{
+            pubbook:[],
 
+        }
     })
 
 
