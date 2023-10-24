@@ -52,11 +52,11 @@
 
       <!--轮播图 结束-->
       <!--内容 开始-->
-      <div class="content">
+      <div class="content" id="content">
         <!--畅销图书 结束-->
-        <div class="pubBook">
+        <div class="pubBook" id="pubBook">
           <div class="conBigTitle">
-            <h2>出版图书</h2>
+            <h2>热门图书</h2>
             <p><a href="" target="_blank">小说</a>|</p>
           </div>
           <div class="show">
@@ -366,10 +366,6 @@
                 console.log(err);
             })
 
-            // this.changeImages();
-            // console.log("currentImages");
-            // console.log(this.currentImages)
-
             setInterval(() => {
                 this.changeImages();
             }, 20000);
@@ -386,8 +382,14 @@
             },
 
         }
+    })
 
+    var content = new Vue({
+        el: '#content',
+        data:{
+            pubbook:[],
 
+        }
     })
 
 
