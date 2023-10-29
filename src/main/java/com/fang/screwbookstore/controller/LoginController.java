@@ -1,5 +1,6 @@
 package com.fang.screwbookstore.controller;
 
+import com.fang.screwbookstore.common.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,14 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 
-@RequestMapping("/front/")
+@RequestMapping("/front")
 public class LoginController {
 
 
     @RequestMapping("/login")
-    public void login(){
-
-        return ;
+    public R login(){
+        log.info("login running...");
+        return R.success(null);
+//        return ;
     }
 
 }
