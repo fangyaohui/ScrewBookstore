@@ -1,6 +1,7 @@
 package com.fang.screwbookstore;
 
 import com.fang.screwbookstore.Utils.BookUtils;
+import com.fang.screwbookstore.common.R;
 import com.fang.screwbookstore.entity.Book;
 import com.fang.screwbookstore.service.BookService;
 import org.junit.jupiter.api.Test;
@@ -29,6 +30,12 @@ public class BookTest {
         }
         res = BookUtils.BookImagePath(res,"..");
         System.out.println(res.toString());
+    }
+
+    @Test
+    public void queryBookByXTest(){
+        R<List<Book>> bookList =  bookService.queryBookByX("buynum");
+        System.out.println(bookList.toString());
     }
 
 }

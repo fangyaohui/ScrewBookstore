@@ -29,7 +29,7 @@ public class IndexController {
 
 //    查询8张图片
     @RequestMapping("/getimage8")
-    public R<List<Book>> index(){
+    public R index(){
         List<Book> res = new ArrayList<>();
         Set<Integer> randomNumbers = BookUtils.generateRandomNumbers(10);
 
@@ -39,6 +39,24 @@ public class IndexController {
         }
         res = BookUtils.BookImagePath(res,"..");
         return R.success(res);
+    }
+
+//    查询热门图书
+    @RequestMapping("/gethotbook")
+    public R gethotbook(){
+        return bookService.queryBookByX("buynum");
+    }
+
+//    查询特价图书
+    @RequestMapping("/getcheapbook")
+    public R getcheapbook(){
+        return bookService.queryBookByX("price");
+    }
+
+//    查询好评图书
+    @RequestMapping("/getgoodbook")
+    public R getgoodbook(){
+        return bookService.queryBookByX("grade");
     }
 
 
