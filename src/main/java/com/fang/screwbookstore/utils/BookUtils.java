@@ -1,7 +1,6 @@
-package com.fang.screwbookstore.Utils;
+package com.fang.screwbookstore.utils;
 
 import com.fang.screwbookstore.entity.Book;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.util.HashSet;
 import java.util.List;

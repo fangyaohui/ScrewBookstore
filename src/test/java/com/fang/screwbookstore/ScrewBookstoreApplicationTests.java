@@ -1,7 +1,5 @@
 package com.fang.screwbookstore;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.fang.screwbookstore.Utils.BookUtils;
 import com.fang.screwbookstore.entity.Book;
 import com.fang.screwbookstore.service.BookService;
 import org.junit.jupiter.api.Test;

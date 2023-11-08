@@ -1,6 +1,6 @@
 package com.fang.screwbookstore;
 
-import com.fang.screwbookstore.Utils.BookUtils;
+import com.fang.screwbookstore.utils.BookUtils;
 import com.fang.screwbookstore.common.Result;
 import com.fang.screwbookstore.entity.Book;
 import com.fang.screwbookstore.service.BookService;

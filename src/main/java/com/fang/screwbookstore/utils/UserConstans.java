@@ -1,4 +1,4 @@
-package com.fang.screwbookstore.Utils;
+package com.fang.screwbookstore.utils;
 
 /**
  * 类说明

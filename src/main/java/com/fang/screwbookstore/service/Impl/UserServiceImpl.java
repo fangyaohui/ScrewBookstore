@@ -10,10 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import javax.servlet.http.HttpSession;
-import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
-import static com.fang.screwbookstore.Utils.UserConstans.USER_NAME;
+import static com.fang.screwbookstore.utils.UserConstans.USER_NAME;
 
 /**
  * 类说明:
