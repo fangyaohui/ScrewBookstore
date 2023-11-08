@@ -42,7 +42,7 @@ public class LoginCheckFilter implements Filter {
         String[] urls = {
                 "/front/**",
                 "/user/login",
-                "user/register",
+                "/user/register",
                 "/data/**",
 
         };

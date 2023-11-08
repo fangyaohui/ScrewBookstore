@@ -148,7 +148,7 @@
                     this.usernameError = '用户名和密码长度必须在6到15位之间';
                     return ;
                 }
-                this.usernameError = '注册成功！';
+                // this.usernameError = '注册成功！';
                 // TODO: Implement login logic
                 const userData = {
                     username:this.username,
@@ -158,15 +158,18 @@
                 // formData.append('password',this.password);
 
                 axios.post("/user/register",userData).then(res => {
-                    const { code } = res.data;
-                    if(code === 1){
+                    // const { code } = res.data;
+                    if(res.data.success === true){
                         // this.pubbook = res.data.data;
-                        window.location.href = '../login.html';
+                        this.usernameError = '注册成功！';
+                        window.location.href = 'login.html';
                         console.log("success");
                     }else{
-                        console.log(res.msg);
+                        this.usernameError = res.data.errorMsg;
+                        console.log(res.data.msg);
                     }
                 }).catch(err => {
+                    this.usernameError = err;
                     console.log(err);
                 })
             },

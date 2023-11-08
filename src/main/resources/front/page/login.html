@@ -137,11 +137,12 @@
                 }
 
                 // TODO: Implement login logic
-                const formData = new FormData();
-                formData.append('username',this.username);
-                formData.append('password',this.password);
+                const userData = {
+                    username:this.username,
+                    password: this.password
+                }
 
-                axios.post("/user/login").then(res => {
+                axios.post("/user/login",userData).then(res => {
                     // const { code } = res.success;
                     console.log(res.data.success);
                     if(res.data.success === true){
@@ -149,9 +150,11 @@
                         window.location.href = '../index.html';
                         console.log("success");
                     }else{
+                        this.usernameError = res.data.errorMsg;
                         console.log(res.data.errorMsg);
                     }
                 }).catch(err => {
+                    this.usernameError = err;
                     console.log(err);
                 })
             },

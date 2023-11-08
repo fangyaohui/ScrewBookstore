@@ -13,15 +13,45 @@
     <link rel="stylesheet" href="css/navbar.css" />
   </head>
   <body>
-    <header>
-      <iframe
-        src="common/navbar.html"
-        frameborder="0"
-        heighe="100%"
-        width="100%"
-        scrolling="no"
-      ></iframe>
-    </header>
+<!--  公共头部 开始-->
+  <div class="blankHead zwfl_head">
+      <div class="n1_header" style="box-shadow: none;">
+          <div class="n1_header_wrap">
+              <h1>
+                  <a href=""><img src="" alt="logo" title="螺钉书城"></a>
+              </h1>
+              <div class="n1_headerR">
+                  <ul class="n1_nav">
+                      <li class="current"><a href="">首页</a></li>
+                      <li><a href="">分类</a></li>
+                      <li><a href="">排行</a></li>
+                      <li><a href="">消息</a></li>
+                      <li><a href="">购物车</a></li>
+                      <li><a href="">我的信息</a></li>
+                  </ul>
+                  <div class="n1_search">
+                      <form method="get" action="https://www.ireader.com/index.php?ca=search.index" onsubmit="return false;" id="search_form" name="search_form">
+                          <input type="text" name="keyword" value="" placeholder="书名/作者名" autocomplete="off">
+                          <!-- class="big_search"-->
+                          <s id="btn_submit_search_form"></s>
+                      </form>
+                      <ul class="list" id="search_suggestion_box"></ul>
+                  </div>
+                  <div class="n1_login">
+                      <a href="page/login.html"><span class="n1_login_beffor" id="unlogin_box" style="display: block;">登录</span></a>
+                      <div class="n1_login_affer" id="login_box" style="display: none;">
+                          <a href=""><i>151******22</i><s></s></a>
+                          <ul style="display: none;">
+                              <li><a href="" title="我的图书"><s class="myBook"></s>我的图书</a></li>
+                              <li><a href="" title="充值"><s class="n1_recharge"></s>充值</a></li>
+                              <li><a href="" title="退出登录"><s class="quit"></s>退出</a></li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 
     <main>
       <!--轮播图 开始-->
