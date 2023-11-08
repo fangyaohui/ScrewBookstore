@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css/8.0.1/normalize.css">
+    <!--1.导入Vue.js-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <!--      2.导入axios.js-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/global.css">
 </head>
@@ -36,8 +42,14 @@
                         </form>
                         <ul class="list" id="search_suggestion_box" style="display: none;"></ul>
                     </div>
-                    <div class="n1_login">
-                        <a href=""><span class="n1_login_beffor" id="unlogin_box" style="display: block;">登录</span></a>
+
+<!--                    改进方案：当用户没有登录时，显示登录按钮，要求点击跳转登录页面
+                                当用户已经登录时，替换登录按钮，显示个人信息跳转按钮
+                                再增加一个退出登录按钮
+-->
+                    <div class="n1_login" id="n1_login" >
+
+                        <a href="../page/login.html"><span class="n1_login_beffor" id="unlogin_box" style="display: block;">登录</span></a>
                         <div class="n1_login_affer" id="login_box" style="display: none;">
                             <a href=""><i></i><s></s></a>
                             <ul>
@@ -55,6 +67,8 @@
 
 <!-- 公共部分导航栏结束 -->
 <link type="text/css" rel="stylesheet" href="../css/index.css">
+
+
 
 </body>
 

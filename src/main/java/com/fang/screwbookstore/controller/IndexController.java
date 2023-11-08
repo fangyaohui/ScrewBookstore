@@ -1,19 +1,12 @@
 package com.fang.screwbookstore.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fang.screwbookstore.Utils.BookUtils;
-import com.fang.screwbookstore.common.R;
+import com.fang.screwbookstore.common.Result;
 import com.fang.screwbookstore.entity.Book;
 import com.fang.screwbookstore.service.BookService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
@@ -29,7 +22,7 @@ public class IndexController {
 
 //    查询8张图片
     @RequestMapping("/getimage8")
-    public R index(){
+    public Result index(){
         List<Book> res = new ArrayList<>();
         Set<Integer> randomNumbers = BookUtils.generateRandomNumbers(10);
 
@@ -38,24 +31,24 @@ public class IndexController {
             res.add(book);
         }
         res = BookUtils.BookImagePath(res,"..");
-        return R.success(res);
+        return Result.ok(res);
     }
 
 //    查询热门图书
     @RequestMapping("/gethotbook")
-    public R gethotbook(){
+    public Result gethotbook(){
         return bookService.queryBookByX("buynum");
     }
 
 //    查询特价图书
     @RequestMapping("/getcheapbook")
-    public R getcheapbook(){
+    public Result getcheapbook(){
         return bookService.queryBookByX("price");
     }
 
 //    查询好评图书
     @RequestMapping("/getgoodbook")
-    public R getgoodbook(){
+    public Result getgoodbook(){
         return bookService.queryBookByX("grade");
     }
 

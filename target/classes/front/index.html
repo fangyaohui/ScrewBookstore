@@ -344,14 +344,14 @@
             axios.post("/front/index/getimage8")
                 .then(res => {
                 // this.$message(res.data);
-                const { code } = res.data;
-                if(code === 1){
+                // const { code } = res.data;
+                if(res.data.success === true){
                     this.images = res.data.data;
                     console.log("success");
                     this.changeImages();
                 }else{
                     console.log("fail");
-                    console.log(res.msg);
+                    console.log(res.data.errorMsg);
                 }
             }).catch(err =>{
                 console.log("error");
@@ -386,11 +386,11 @@
         created(){
             axios.post("/front/index/gethotbook").then(res => {
                 const { code } = res.data;
-                if(code === 1){
+                if(res.data.success === true){
                     this.pubbook = res.data.data;
                     console.log("success");
                 }else{
-                    console.log(res.msg);
+                    console.log(res.data.errorMsg);
                 }
             }).catch(err => {
                 console.log(err);
@@ -398,11 +398,11 @@
 
             axios.post("/front/index/getcheapbook").then(res => {
                 const { code } = res.data;
-                if(code === 1){
+                if(res.data.success === true){
                     this.cheapbook = res.data.data;
                     console.log("success");
                 }else{
-                    console.log(res.msg);
+                    console.log(res.data.errorMsg);
                 }
             }).catch(err => {
                 console.log(err);
@@ -410,11 +410,11 @@
 
             axios.post("/front/index/getgoodbook").then(res => {
                 const { code } = res.data;
-                if(code === 1){
+                if(res.data.success === true){
                     this.goodbook = res.data.data;
                     console.log("success");
                 }else{
-                    console.log(res.msg);
+                    console.log(res.errorMsg);
                 }
             }).catch(err => {
                 console.log(err);

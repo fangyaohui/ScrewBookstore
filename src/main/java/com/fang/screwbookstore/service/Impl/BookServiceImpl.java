@@ -1,9 +1,8 @@
 package com.fang.screwbookstore.service.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.fang.screwbookstore.common.R;
+import com.fang.screwbookstore.common.Result;
 import com.fang.screwbookstore.entity.Book;
 import com.fang.screwbookstore.entity.TbBookexpand;
 import com.fang.screwbookstore.mapper.BookMapper;
@@ -27,7 +26,7 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
      * @return R<list<Book>>
      */
     @Override
-    public R queryBookByX(String s) {
+    public Result queryBookByX(String s) {
 
         LambdaQueryWrapper<TbBookexpand> queryWrapper = new LambdaQueryWrapper<>();
         if(s.equals("buynum")){
@@ -50,7 +49,7 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements Bo
             bookList.add(book);
         }
 //        R<List<Book>> ha= new R<>();
-        return R.success(bookList);
+        return Result.ok(bookList);
     }
 
 

@@ -1,7 +1,7 @@
 package com.fang.screwbookstore;
 
 import com.fang.screwbookstore.Utils.BookUtils;
-import com.fang.screwbookstore.common.R;
+import com.fang.screwbookstore.common.Result;
 import com.fang.screwbookstore.entity.Book;
 import com.fang.screwbookstore.service.BookService;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 @SpringBootTest
@@ -34,7 +33,7 @@ public class BookTest {
 
     @Test
     public void queryBookByXTest(){
-        R<List<Book>> bookList =  bookService.queryBookByX("buynum");
+        Result bookList =  bookService.queryBookByX("buynum");
         System.out.println(bookList.toString());
     }
 

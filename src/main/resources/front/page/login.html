@@ -141,14 +141,15 @@
                 formData.append('username',this.username);
                 formData.append('password',this.password);
 
-                axios.post("/front/login").then(res => {
-                    const { code } = res.data;
-                    if(code === 1){
+                axios.post("/user/login").then(res => {
+                    // const { code } = res.success;
+                    console.log(res.data.success);
+                    if(res.data.success === true){
                         // this.pubbook = res.data.data;
                         window.location.href = '../index.html';
                         console.log("success");
                     }else{
-                        console.log(res.msg);
+                        console.log(res.data.errorMsg);
                     }
                 }).catch(err => {
                     console.log(err);
