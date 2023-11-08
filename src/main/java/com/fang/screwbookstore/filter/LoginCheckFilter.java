@@ -54,7 +54,7 @@ public class LoginCheckFilter implements Filter {
             return;
         }
 
-        log.info("未登录，已拦截....");
+        log.info("未登录，已拦截...."+requersURI);
 //        response.getWriter().write(JSON.toJSONString(R.error("NOLOGIN")));
         response.flushBuffer();
     }
