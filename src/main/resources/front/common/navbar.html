@@ -22,7 +22,7 @@
         <div class="n1_header" style="box-shadow: none;">
             <div class="n1_header_wrap">
                 <h1>
-                    <a href="../index.html"><img src="" alt="logo" title="螺钉书店"></a>
+                    <a href="../index.html"><img src="../img/logo.jpg" alt="logo" title="螺钉书店"></a>
                 </h1>
                 <div class="n1_headerR">
                     <ul class="n1_nav">
@@ -31,7 +31,7 @@
                         <li><a href="">排行</a></li>
                         <li><a href="">消息</a></li>
                         <li><a href="">购物车</a></li>
-                        <li><a href="">我的</a></li>
+                        <li><a href="">我的信息</a></li>
 
                     </ul>
                     <div class="n1_search">
@@ -47,18 +47,27 @@
                                 当用户已经登录时，替换登录按钮，显示个人信息跳转按钮
                                 再增加一个退出登录按钮
 -->
-                    <div class="n1_login">
+                    <!--                    改进方案：当用户没有登录时，显示登录按钮，要求点击跳转登录页面
+                                当用户已经登录时，替换登录按钮，显示个人信息跳转按钮
+                                再增加一个退出登录按钮
 
-                        <a href="../page/login.html"><span class="n1_login_beffor" id="unlogin_box" style="display: block;">登录</span></a>
-                        <div class="n1_login_affer" id="login_box" style="display: none;">
-                            <a href=""><i></i><s></s></a>
-                            <ul>
-                                <!-- <li><a href="" title="我的图书"><s class="myBook"></s>我的图书</a></li> -->
-                                <li><a href="" title="设置"><s class="n1_recharge"></s>设置</a></li>
-                                <li><a href="" title="退出登录"><s class="quit"></s>退出</a></li>
-                            </ul>
-                        </div>
+-->
+                    <div class="n1_login" id="n1_login">
+                        <span class="n1_login_beffor" v-if="!userLoggedIn" @click="goToLoginPage">登录</span>
+                        <span class="n1_login_beffor" v-if="userLoggedIn" @click="logout">{{ username }}</span>
                     </div>
+<!--                    <div class="n1_login">-->
+
+<!--                        <a href="../page/login.html"><span class="n1_login_beffor" id="unlogin_box" style="display: block;">登录</span></a>-->
+<!--                        <div class="n1_login_affer" id="login_box" style="display: none;">-->
+<!--                            <a href=""><i></i><s></s></a>-->
+<!--                            <ul>-->
+<!--                                &lt;!&ndash; <li><a href="" title="我的图书"><s class="myBook"></s>我的图书</a></li> &ndash;&gt;-->
+<!--                                <li><a href="" title="设置"><s class="n1_recharge"></s>设置</a></li>-->
+<!--                                <li><a href="" title="退出登录"><s class="quit"></s>退出</a></li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>
@@ -68,7 +77,43 @@
 <!-- 公共部分导航栏结束 -->
 <link type="text/css" rel="stylesheet" href="../css/index.css">
 
-
+<script>
+    new Vue({
+        el:'#n1_login',
+        data:{
+            userLoggedIn:false,
+            showDropdown:false,
+            username:''
+        },
+        created(){
+            // 钩子函数 该方法在页面显示后，自动执行
+            axios.post("/user/sign",).then(res =>{
+                if(res.data.success === true){
+                    this.userLoggedIn = true;
+                    this.showDropdown = true;
+                    this.username = res.data.data;
+                }else{
+                    this.userLoggedIn = false;
+                    this.showDropdown = false;
+                }
+            })
+        },
+        methods:{
+            goToLoginPage(){
+                window.location.href = '../page/login.html';
+                this.userLoggedIn = true;
+                this.showDropdown = true;
+                this.username = "fangyaohui";
+            },
+            logout(){
+                this.userLoggedIn = false;
+                this.username = '';
+                this.showDropdown = false;
+                // window.location.href = 'navbar.html';
+            }
+        }
+    })
+</script>
 
 </body>
 

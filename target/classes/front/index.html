@@ -7,53 +7,74 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
 <!--      2.导入axios.js-->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
       <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/global.css" />
     <link rel="stylesheet" href="css/navbar.css" />
   </head>
   <body>
-<!--  公共头部 开始-->
-  <div class="blankHead zwfl_head">
-      <div class="n1_header" style="box-shadow: none;">
-          <div class="n1_header_wrap">
-              <h1>
-                  <a href=""><img src="" alt="logo" title="螺钉书城"></a>
-              </h1>
-              <div class="n1_headerR">
-                  <ul class="n1_nav">
-                      <li class="current"><a href="">首页</a></li>
-                      <li><a href="">分类</a></li>
-                      <li><a href="">排行</a></li>
-                      <li><a href="">消息</a></li>
-                      <li><a href="">购物车</a></li>
-                      <li><a href="">我的信息</a></li>
-                  </ul>
-                  <div class="n1_search">
-                      <form method="get" action="https://www.ireader.com/index.php?ca=search.index" onsubmit="return false;" id="search_form" name="search_form">
-                          <input type="text" name="keyword" value="" placeholder="书名/作者名" autocomplete="off">
-                          <!-- class="big_search"-->
-                          <s id="btn_submit_search_form"></s>
-                      </form>
-                      <ul class="list" id="search_suggestion_box"></ul>
-                  </div>
-                  <div class="n1_login">
-                      <a href="page/login.html"><span class="n1_login_beffor" id="unlogin_box" style="display: block;">登录</span></a>
-                      <div class="n1_login_affer" id="login_box" style="display: none;">
-                          <a href=""><i>151******22</i><s></s></a>
-                          <ul style="display: none;">
-                              <li><a href="" title="我的图书"><s class="myBook"></s>我的图书</a></li>
-                              <li><a href="" title="充值"><s class="n1_recharge"></s>充值</a></li>
-                              <li><a href="" title="退出登录"><s class="quit"></s>退出</a></li>
-                          </ul>
+  <!-- 公共头部 开始 -->
+  <div>
+      <div class="blankHead zwfl_head">
+          <div class="n1_header" style="box-shadow: none;">
+              <div class="n1_header_wrap">
+                  <h1>
+                      <a href="../index.html"><img src="img/logo.jpg" alt="logo" title="螺钉书店"></a>
+                  </h1>
+                  <div class="n1_headerR">
+                      <ul class="n1_nav">
+                          <li class="current"><a href="">首页</a></li>
+                          <li><a href="">分类</a></li>
+                          <li><a href="">排行</a></li>
+                          <li><a href="">消息</a></li>
+                          <li><a href="">购物车</a></li>
+                          <li><a href="">我的信息</a></li>
+
+                      </ul>
+                      <div class="n1_search">
+                          <form method="get" action="" onsubmit="return false;" id="search_form" name="search_form">
+                              <input type="text" name="keyword" value="" placeholder="书名/作者名" autocomplete="off">
+                              <!-- class="big_search"-->
+                              <s id="btn_submit_search_form"></s>
+                          </form>
+                          <ul class="list" id="search_suggestion_box" style="display: none;"></ul>
                       </div>
+
+                      <!--                    改进方案：当用户没有登录时，显示登录按钮，要求点击跳转登录页面
+                                                      当用户已经登录时，替换登录按钮，显示个人信息跳转按钮
+                                                      再增加一个退出登录按钮
+                      -->
+                      <!--                    改进方案：当用户没有登录时，显示登录按钮，要求点击跳转登录页面
+                                  当用户已经登录时，替换登录按钮，显示个人信息跳转按钮
+                                  再增加一个退出登录按钮
+
+  -->
+                      <div class="n1_login" id="n1_login">
+                          <span class="n1_login_beffor" v-if="!userLoggedIn" @click="goToLoginPage">登录</span>
+                          <span class="n1_login_beffor" v-if="userLoggedIn" @click="logout">{{ username }}</span>
+                      </div>
+                      <!--                    <div class="n1_login">-->
+
+                      <!--                        <a href="../page/login.html"><span class="n1_login_beffor" id="unlogin_box" style="display: block;">登录</span></a>-->
+                      <!--                        <div class="n1_login_affer" id="login_box" style="display: none;">-->
+                      <!--                            <a href=""><i></i><s></s></a>-->
+                      <!--                            <ul>-->
+                      <!--                                &lt;!&ndash; <li><a href="" title="我的图书"><s class="myBook"></s>我的图书</a></li> &ndash;&gt;-->
+                      <!--                                <li><a href="" title="设置"><s class="n1_recharge"></s>设置</a></li>-->
+                      <!--                                <li><a href="" title="退出登录"><s class="quit"></s>退出</a></li>-->
+                      <!--                            </ul>-->
+                      <!--                        </div>-->
+                      <!--                    </div>-->
                   </div>
               </div>
           </div>
       </div>
   </div>
 
-    <main>
+  <!-- 公共部分导航栏结束 -->
+
+
+
+    <main >
       <!--轮播图 开始-->
       <div class="recom">
         <div class="recomWrap">
@@ -62,7 +83,7 @@
             <div class="book_wrap" id="lunbotu">
               <ul id="recommend_book_lunbo_ul">
                   <li v-for="name in currentImages" class="little">
-                      <a href="#" target="_blank" :title=name.bookname>
+                      <a  target="_blank" :title=name.bookname v-on:click="bookinfo(name.id)">
                           <img :src=name.imgpath :title=name.bookname :alt=name.bookname class="lazy" style="
                            display: inline-block;
                            height: 168px;
@@ -88,7 +109,7 @@
         <div class="pubBook" id="pubBook">
           <div class="conBigTitle">
             <h2>热门图书</h2>
-            <p><a href="#" target="_blank">小说</a>|</p>
+            <p><a href="#" target="_blank"></a></p>
           </div>
           <div class="show">
             <s class="sign"></s>
@@ -266,7 +287,7 @@
         <div class="pubBook" id="goodBook">
           <div class="conBigTitle">
               <h2>好评图书</h2>
-              <p><a href="#" target="_blank">小说</a>|</p>
+              <p><a href="#" target="_blank"></a></p>
           </div>
           <div class="show">
               <s class="sign"></s>
@@ -363,6 +384,43 @@
   </body>
 
 <script>
+    var n1_login = new Vue({
+        el:'#n1_login',
+        data:{
+            userLoggedIn:false,
+            showDropdown:false,
+            username:''
+        },
+        created(){
+            // 钩子函数 该方法在页面显示后，自动执行
+            axios.post("/user/sign",).then(res =>{
+                if(res.data.success === true){
+                    this.userLoggedIn = true;
+                    this.showDropdown = true;
+                    this.username = res.data.data;
+                }else{
+                    this.userLoggedIn = false;
+                    this.showDropdown = false;
+                }
+            })
+        },
+        methods:{
+            goToLoginPage(){
+                window.location.href = 'page/login.html';
+                // this.userLoggedIn = true;
+                // this.showDropdown = true;
+                // this.username = "fangyaohui";
+            },
+            logout(){
+                this.userLoggedIn = false;
+                this.showDropdown = false;
+                this.username = '';
+                axios.post("/user/signout");
+                // window.location.href = 'navbar.html';
+            }
+        }
+    })
+
     var lunbotu = new Vue({
         el:'#lunbotu',
         data:{
@@ -402,7 +460,16 @@
                 ];
                 this.currentIndex++;
             },
-
+            bookinfo(id){
+                console.log(id);
+                window.location.href = "page/bookinfo.html?bookid="+id;
+                // this.$router.push({
+                //     path:"/page/bookinfo",
+                //     params:{
+                //         bookid:id
+                //     }
+                // });
+            }
         }
     })
 
@@ -451,6 +518,8 @@
             })
         }
     })
+
+
 
 
 </script>

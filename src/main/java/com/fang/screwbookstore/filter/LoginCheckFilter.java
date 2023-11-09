@@ -1,6 +1,7 @@
 package com.fang.screwbookstore.filter;
 
 
+import com.fang.screwbookstore.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.AntPathMatcher;
 
@@ -45,6 +46,7 @@ public class LoginCheckFilter implements Filter {
                 "/user/register",
                 "/data/**",
 
+
         };
 
 //        匹配成功 直接放行
@@ -53,9 +55,19 @@ public class LoginCheckFilter implements Filter {
             filterChain.doFilter(request,response);
             return;
         }
+        User user = (User) request.getSession().getAttribute("user");
+        if(user != null){
+            log.info("用户已登录，已放行...");
+            filterChain.doFilter(request,response);
+            return;
+        }
 
         log.info("未登录，已拦截...."+requersURI);
-//        response.getWriter().write(JSON.toJSONString(R.error("NOLOGIN")));
+
+//      这里为了方便测试 为所有访问开后门 后续需要注释掉 并把respon下一行代码去掉注释
+//        filterChain.doFilter(request,response);
+//        return;
+
         response.flushBuffer();
     }
 

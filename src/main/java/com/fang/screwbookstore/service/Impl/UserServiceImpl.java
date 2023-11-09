@@ -11,6 +11,7 @@ import org.springframework.util.DigestUtils;
 
 import javax.servlet.http.HttpSession;
 import java.util.Random;
+import java.util.UUID;
 
 import static com.fang.screwbookstore.utils.UserConstans.USER_NAME;
 
@@ -79,7 +80,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         if(hasdedpwd.equals(usertemp.getPassword())){
             log.info(user.getUsername() + " 登录成功");
-            session.setAttribute("user",usertemp.getId());
+
+//            String token = UUID.randomUUID().toString();
+
+            session.setAttribute("user",usertemp);
             return Result.ok();
         }else{
             return Result.fail("密码输入错误，请重新输入");

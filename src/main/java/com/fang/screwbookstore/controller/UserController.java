@@ -50,7 +50,34 @@ public class UserController {
         log.info(userData.toString());
 //      实现登录功能
         return userService.login(userData,session);
+    }
 
+    /**
+     * 该函数功能：
+     *      1、验证用户是否已经登录
+     *      2、如果已经登录，返回其token
+     * @return
+     *      1、没有登录 返回fail
+     *      2、登录成功 返回success
+     */
+    @RequestMapping("/sign")
+    public Result sign(HttpSession session){
+//        log.info();
+        User user = (User) session.getAttribute("user");
+        log.info(user.toString());
+//      未登录
+        if(user == null){
+            return Result.fail("用户未登录");
+        }
+        return Result.ok(user.getName());
+
+    }
+
+    @RequestMapping("/signout")
+    public Result signout(HttpSession session){
+        log.info("用户退出登录");
+        session.setAttribute("user",null);
+        return Result.ok();
     }
 
 }

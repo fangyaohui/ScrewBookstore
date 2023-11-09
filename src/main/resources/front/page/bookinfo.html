@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bookinfo</title>
+    <!--1.导入Vue.js-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <!--      2.导入axios.js-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="../css/bookinfo.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/global.css">
+</head>
+
+
+<body>
+
+<!-- 公共头部 开始 -->
+<div>
+    <div class="blankHead zwfl_head">
+        <div class="n1_header" style="box-shadow: none;">
+            <div class="n1_header_wrap">
+                <h1>
+                    <a href="../index.html"><img src="../img/logo.jpg" alt="logo" title="螺钉书店"></a>
+                </h1>
+                <div class="n1_headerR">
+                    <ul class="n1_nav">
+                        <li ><a href="../index.html">首页</a></li>
+                        <li ><a href="">分类</a></li>
+                        <li><a href="">排行</a></li>
+                        <li><a href="">消息</a></li>
+                        <li><a href="">购物车</a></li>
+                        <li><a href="">我的信息</a></li>
+
+                    </ul>
+                    <div class="n1_search">
+                        <form method="get" action="" onsubmit="return false;" id="search_form" name="search_form">
+                            <input type="text" name="keyword" value="" placeholder="书名/作者名" autocomplete="off">
+                            <!-- class="big_search"-->
+                            <s id="btn_submit_search_form"></s>
+                        </form>
+                        <ul class="list" id="search_suggestion_box" style="display: none;"></ul>
+                    </div>
+
+                    <!--                    改进方案：当用户没有登录时，显示登录按钮，要求点击跳转登录页面
+                                                    当用户已经登录时，替换登录按钮，显示个人信息跳转按钮
+                                                    再增加一个退出登录按钮
+                    -->
+                    <!--                    改进方案：当用户没有登录时，显示登录按钮，要求点击跳转登录页面
+                                当用户已经登录时，替换登录按钮，显示个人信息跳转按钮
+                                再增加一个退出登录按钮
+
+-->
+                    <div class="n1_login" id="n1_login">
+                        <span class="n1_login_beffor" v-if="!userLoggedIn" @click="goToLoginPage">登录</span>
+                        <span class="n1_login_beffor" v-if="userLoggedIn" @click="logout">{{ username }}</span>
+                    </div>
+                    <!--                    <div class="n1_login">-->
+
+                    <!--                        <a href="../page/login.html"><span class="n1_login_beffor" id="unlogin_box" style="display: block;">登录</span></a>-->
+                    <!--                        <div class="n1_login_affer" id="login_box" style="display: none;">-->
+                    <!--                            <a href=""><i></i><s></s></a>-->
+                    <!--                            <ul>-->
+                    <!--                                &lt;!&ndash; <li><a href="" title="我的图书"><s class="myBook"></s>我的图书</a></li> &ndash;&gt;-->
+                    <!--                                <li><a href="" title="设置"><s class="n1_recharge"></s>设置</a></li>-->
+                    <!--                                <li><a href="" title="退出登录"><s class="quit"></s>退出</a></li>-->
+                    <!--                            </ul>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--书籍内容开始-->
+<div class="content">
+
+    <div class="bookInfor" id="bookInfor">
+        <div class="bookL">
+            <s>美食菜谱</s>
+            <a>
+                <img src="" alt="快手家常菜" title="快手家常菜">
+            </a>
+            <img src="" alt="" class="shadow">
+        </div>
+        <div class="bookR">
+            <div class="bookinf01">
+                <div class="bookname">
+                    <h2><a>快手家常菜</a></h2>
+                    <span>8.6</span>                </div>
+                <p>
+                    <span class="author" style="margin-right: 12px;">作者：饮食生活编委会</span>
+                    <span style="margin-right: 12px;">字数：8.7万字</span>
+                    <span>出版社：吉林科技出版社</span>
+                    <span class="manyMan">37人评分</span>                                    </p>
+            </div>
+            <div class="bookinf02">
+                <div class="left">
+                    <p>
+                        <i class="price">价格：1000阅饼</i>
+                    </p>
+
+                    <a href="" target="_blank" data-js="readNow" class="readNow"><span class="tryRead">免费试读</span></a>
+                    <span class="buyBook" data-js="viewall">
+                        购买
+                    </span>
+                </div>
+                <div class="right">
+					<span class="look_phone" mod="look_phone_pic">
+
+					</span>
+                    <span class="look_ewm" mod="look_phone_pic">
+
+					</span>
+                </div>
+            </div>
+            <div class="bookinf03">
+                <p>
+                    想不想又快又简单地做出美味家常菜？没问题，《快手家常菜》包教包会！　　《快手家常菜》专为工作忙碌的上班族准备，精选100余道菜品，将很受欢迎的各式小炒，如素菜小炒，肉禽蛋类小炒，河海鲜小炒等当下时尚菜一应囊括，更加入超简单凉拌菜，不费时熬煮的汤等超有人气的美食。书中的每道菜都经过小编的严格验证，保证是好吃又简单，省时又营养的业界口碑菜，更特别加入快手tips，助你轻松快速搞定家常菜。同时，《快手家常菜》加入营养一周早中晚三餐健康搭配速查和聚餐菜肴搭配推荐，让你真正一书在手，做饭不愁。                </p>
+                <div class="shareWrap">
+                    <div class="share" style="display: none;">
+                        <a href="javascript:;" class="weibo">
+                            <img src="//pweb.d.ireader.com/static/images/rank/weibo.png" _hover_src="//pweb.d.ireader.com/static/images/rank/weiboHov.png" alt="weibo">
+                        </a>
+                        <a href="javascript:;">
+                            <img src="//pweb.d.ireader.com/static/images/rank/qq.png" _hover_src="//pweb.d.ireader.com/static/images/rank/qqHov.png" alt="qq">
+                        </a>
+                    </div>
+                    <span><a href="javascript:;" btn="desc_show_more">展开<s></s></a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--书圈 开始-->
+    <div class="sqCon">
+        <div class="bookCir">
+            <div class="title">
+                <p>
+                    <span class="shuquan">书圈</span>
+                    <span class="line">|</span>
+                    <span>共2534人，38条</span>
+                </p>
+                <a href="javascript:;" class="comBtn" btn="topic_add" data-has_fu_text="0" data-cid="book_10960166">
+                    <s></s>
+                    <span>我来说两句</span>
+                </a>
+            </div>
+
+            <div class="allCom" style="display: block;">
+                <ul>
+                    <li>
+                        <span class="headImg">
+                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_300,h_400/7e162cbf/group61/M00/C4/0C/CmQUOFzYYfiETc3pAAAAABZpesM309157737.jpg?v=55JP5wU_&amp;t=CmQUOFzYYfg." alt="旺仔牛奶">
+                        </span>
+                        <div class="allCom">
+                            <div class="ComMan">
+                                <p>旺仔牛奶</p>
+                                <span class="lv">LV6</span>
+                                <span>2016-07-22</span>
+                            </div>
+                            <div class="ComStar">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/gStar.png">
+                            </div>
+                            <div class="comTxt">
+                                <span>
+                                    <s>书评</s>
+                                    <i><a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=30976665" target="_blank">自从我炒菜炒的连自己都吃不下去的时候我就知道我该有本神器了</a></i>
+                                                                </span>
+                            </div>
+                            <div class="attend">
+                                <a href="javascript:;" btn="like" data-num="7" data-liked="0" data-tid="30976665" data-cid="book_10960166" class="zan click">
+                                    <!--<s class="zan"></s>-->
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/zan.gif" alt="赞">
+                                    <i>7</i>
+                                </a>
+                                <span class="line"></span>
+                                <a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=30976665" class="huifu" target="_blank">
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/hf.gif" alt="回复">
+                                    <i>2</i>
+                                </a>
+                                <span class="up" btn="content_hide_more" style="display: none;"><i>收起</i><s></s></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="headImg">
+                            <img src="http://tp3.sinaimg.cn/5175525178/180/5697464959/0" alt="鼎鼎大名">
+                        </span>
+                        <div class="allCom">
+                            <div class="ComMan">
+                                <p>鼎鼎大名</p>
+                                <span class="lv">LV12</span>
+                                <span>2016-03-01</span>
+                            </div>
+                            <div class="ComStar">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                            </div>
+                            <div class="comTxt">
+                                <span>
+                                    <s>书评</s>
+                                    <i><a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=18648715" target="_blank">棒棒的，太有用了，很喜欢，好好学，！！！</a></i>
+                                                                </span>
+                            </div>
+                            <div class="attend">
+                                <a href="javascript:;" btn="like" data-num="10" data-liked="0" data-tid="18648715" data-cid="book_10960166" class="zan click">
+                                    <!--<s class="zan"></s>-->
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/zan.gif" alt="赞">
+                                    <i>10</i>
+                                </a>
+                                <span class="line"></span>
+                                <a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=18648715" class="huifu" target="_blank">
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/hf.gif" alt="回复">
+                                    <i>1</i>
+                                </a>
+                                <span class="up" btn="content_hide_more" style="display: none;"><i>收起</i><s></s></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="headImg">
+                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_300,h_400/2993adbb/group6/M00/9A/35/CmQUN1YBu-uEKzORAAAAAImAUzo695758351.jpg" alt="萧雨">
+                        </span>
+                        <div class="allCom">
+                            <div class="ComMan">
+                                <p>萧雨</p>
+                                <span class="lv">LV17</span>
+                                <span>2016-06-21</span>
+                            </div>
+                            <div class="ComStar">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                            </div>
+                            <div class="comTxt">
+                                <span>
+                                    <s>书评</s>
+                                    <i><a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=26664416" target="_blank">非常实用，内容详实。</a></i>
+                                                                </span>
+                            </div>
+                            <div class="attend">
+                                <a href="javascript:;" btn="like" data-num="6" data-liked="0" data-tid="26664416" data-cid="book_10960166" class="zan click">
+                                    <!--<s class="zan"></s>-->
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/zan.gif" alt="赞">
+                                    <i>6</i>
+                                </a>
+                                <span class="line"></span>
+                                <a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=26664416" class="huifu" target="_blank">
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/hf.gif" alt="回复">
+                                    <i>&nbsp;</i>
+                                </a>
+                                <span class="up" btn="content_hide_more" style="display: none;"><i>收起</i><s></s></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="headImg">
+                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_300,h_400/0fdae75c/group6/M00/2D/94/CmQUOVccrBGEN3fAAAAAAJm4vac746890561.jpg?v=dx8Uvy-j" alt="陈林">
+                        </span>
+                        <div class="allCom">
+                            <div class="ComMan">
+                                <p>陈林</p>
+                                <span class="lv">LV5</span>
+                                <span>2016-04-29</span>
+                            </div>
+                            <div class="ComStar">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                            </div>
+                            <div class="comTxt">
+                                <span>
+                                    <s>书评</s>
+                                    <i><a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=21610828" target="_blank">此书很好，方便实用。食材简单</a></i>
+                                                                </span>
+                            </div>
+                            <div class="attend">
+                                <a href="javascript:;" btn="like" data-num="8" data-liked="0" data-tid="21610828" data-cid="book_10960166" class="zan click">
+                                    <!--<s class="zan"></s>-->
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/zan.gif" alt="赞">
+                                    <i>8</i>
+                                </a>
+                                <span class="line"></span>
+                                <a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=21610828" class="huifu" target="_blank">
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/hf.gif" alt="回复">
+                                    <i>&nbsp;</i>
+                                </a>
+                                <span class="up" btn="content_hide_more" style="display: none;"><i>收起</i><s></s></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="headImg">
+                            <img src="//pweb.d.ireader.com/static/images/common/touxiang.png" alt="i10****2648">
+                        </span>
+                        <div class="allCom">
+                            <div class="ComMan">
+                                <p>i10****2648</p>
+                                <span class="lv">LV13</span>
+                                <span>2020-08-03</span>
+                            </div>
+                            <div class="ComStar">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                            </div>
+                            <div class="comTxt">
+                                <span>
+                                    <s>书评</s>
+                                    <i><a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=177150281" target="_blank">色香味俱全，看着不错</a></i>
+                                                                </span>
+                            </div>
+                            <div class="attend">
+                                <a href="javascript:;" btn="like" data-num="3" data-liked="0" data-tid="177150281" data-cid="book_10960166" class="zan click">
+                                    <!--<s class="zan"></s>-->
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/zan.gif" alt="赞">
+                                    <i>3</i>
+                                </a>
+                                <span class="line"></span>
+                                <a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=177150281" class="huifu" target="_blank">
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/hf.gif" alt="回复">
+                                    <i>&nbsp;</i>
+                                </a>
+                                <span class="up" btn="content_hide_more" style="display: none;"><i>收起</i><s></s></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="headImg">
+                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_300,h_400/5e5ac6c2/group6/M00/2F/C5/CmRabluQ08CENqcfAAAAAPUXAc8274866789.png?v=HbLewl5D&amp;t=CmQUN2JZY6U." alt="Hellottg">
+                        </span>
+                        <div class="allCom">
+                            <div class="ComMan">
+                                <p>Hellottg</p>
+                                <span class="lv">LV16</span>
+                                <span>2020-12-04</span>
+                            </div>
+                            <div class="ComStar">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                            </div>
+                            <div class="comTxt">
+                                <span>
+                                    <s>书评</s>
+                                    <i><a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=181793554" target="_blank">非常有用的一本书</a></i>
+                                                                </span>
+                            </div>
+                            <div class="attend">
+                                <a href="javascript:;" btn="like" data-num="3" data-liked="0" data-tid="181793554" data-cid="book_10960166" class="zan click">
+                                    <!--<s class="zan"></s>-->
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/zan.gif" alt="赞">
+                                    <i>3</i>
+                                </a>
+                                <span class="line"></span>
+                                <a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=181793554" class="huifu" target="_blank">
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/hf.gif" alt="回复">
+                                    <i>&nbsp;</i>
+                                </a>
+                                <span class="up" btn="content_hide_more" style="display: none;"><i>收起</i><s></s></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="headImg">
+                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_300,h_400/286703bc/group6/M00/16/6A/CmRaelsQAiKEdIziAAAAAAg-7y4589042657.png?v=tUWtQWwv&amp;t=CmRael-OkX8." alt="ftdttgyy">
+                        </span>
+                        <div class="allCom">
+                            <div class="ComMan">
+                                <p>ftdttgyy</p>
+                                <span class="lv">LV21</span>
+                                <span>2021-01-07</span>
+                            </div>
+                            <div class="ComStar">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                            </div>
+                            <div class="comTxt">
+                                <span>
+                                    <s>书评</s>
+                                    <i><a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=182845809" target="_blank">挺好的，想做菜的时候看看</a></i>
+                                                                </span>
+                            </div>
+                            <div class="attend">
+                                <a href="javascript:;" btn="like" data-num="4" data-liked="0" data-tid="182845809" data-cid="book_10960166" class="zan click">
+                                    <!--<s class="zan"></s>-->
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/zan.gif" alt="赞">
+                                    <i>4</i>
+                                </a>
+                                <span class="line"></span>
+                                <a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=182845809" class="huifu" target="_blank">
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/hf.gif" alt="回复">
+                                    <i>&nbsp;</i>
+                                </a>
+                                <span class="up" btn="content_hide_more" style="display: none;"><i>收起</i><s></s></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="headImg">
+                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_300,h_400/fb67720d/group61/M00/A5/3F/CmQUOF4qDUWEZPUcAAAAAE1Mx9k000011289.jpg?v=zx6WpEhc&amp;t=CmQUOF4qDUU." alt="王者为死">
+                        </span>
+                        <div class="allCom">
+                            <div class="ComMan">
+                                <p>王者为死</p>
+                                <span class="lv">LV11</span>
+                                <span>2017-07-27</span>
+                            </div>
+                            <div class="ComStar">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                            </div>
+                            <div class="comTxt">
+                                <span>
+                                    <s>书评</s>
+                                    <i><a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=95019758" target="_blank">这本书太好了，居然有图</a></i>
+                                                                </span>
+                            </div>
+                            <div class="attend">
+                                <a href="javascript:;" btn="like" data-num="3" data-liked="0" data-tid="95019758" data-cid="book_10960166" class="zan click">
+                                    <!--<s class="zan"></s>-->
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/zan.gif" alt="赞">
+                                    <i>3</i>
+                                </a>
+                                <span class="line"></span>
+                                <a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=95019758" class="huifu" target="_blank">
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/hf.gif" alt="回复">
+                                    <i>&nbsp;</i>
+                                </a>
+                                <span class="up" btn="content_hide_more" style="display: none;"><i>收起</i><s></s></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="headImg">
+                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_300,h_400/7d664122/group61/M00/28/46/CmQUOGKDmgmEavqbAAAAAOavgNw561991135.png?v=BFBFA7zI&amp;t=CmQUOGKDmgk." alt="rebelking">
+                        </span>
+                        <div class="allCom">
+                            <div class="ComMan">
+                                <p>rebelking</p>
+                                <span class="lv">LV17</span>
+                                <span>2022-05-17</span>
+                            </div>
+                            <div class="ComStar">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                            </div>
+                            <div class="comTxt">
+                                <span>
+                                    <s>书评</s>
+                                    <i><a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=196900314" target="_blank">入门级的，看不看都行</a></i>
+                                                                </span>
+                            </div>
+                            <div class="attend">
+                                <a href="javascript:;" btn="like" data-num="2" data-liked="0" data-tid="196900314" data-cid="book_10960166" class="zan click">
+                                    <!--<s class="zan"></s>-->
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/zan.gif" alt="赞">
+                                    <i>2</i>
+                                </a>
+                                <span class="line"></span>
+                                <a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=196900314" class="huifu" target="_blank">
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/hf.gif" alt="回复">
+                                    <i>&nbsp;</i>
+                                </a>
+                                <span class="up" btn="content_hide_more" style="display: none;"><i>收起</i><s></s></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="headImg">
+                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_300,h_400/433cbe99/group61/M00/96/26/CmQUOWL4VPaESgoCAAAAAIXQ_yY906463080.jpg?v=Z8_tc0_k&amp;t=CmQUOWL4VPc." alt="竹筏">
+                        </span>
+                        <div class="allCom">
+                            <div class="ComMan">
+                                <p>竹筏</p>
+                                <span class="lv">LV16</span>
+                                <span class="vip">VIP</span>                                <span>2021-10-11</span>
+                            </div>
+                            <div class="ComStar">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                            </div>
+                            <div class="comTxt">
+                                <span>
+                                    <s>书评</s>
+                                    <i><a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=191527570" target="_blank">谢谢作者已经阅读</a></i>
+                                                                </span>
+                            </div>
+                            <div class="attend">
+                                <a href="javascript:;" btn="like" data-num="3" data-liked="0" data-tid="191527570" data-cid="book_10960166" class="zan click">
+                                    <!--<s class="zan"></s>-->
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/zan.gif" alt="赞">
+                                    <i>3</i>
+                                </a>
+                                <span class="line"></span>
+                                <a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=191527570" class="huifu" target="_blank">
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/hf.gif" alt="回复">
+                                    <i>&nbsp;</i>
+                                </a>
+                                <span class="up" btn="content_hide_more" style="display: none;"><i>收起</i><s></s></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="headImg">
+                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_300,h_400/5391a392/group6/M00/85/F5/CmQUOFq6FTmETPGnAAAAALSm6jg199696144.png?v=L6QCN7XY&amp;t=CmQUN2D6hPQ." alt="平凡之路的">
+                        </span>
+                        <div class="allCom">
+                            <div class="ComMan">
+                                <p>平凡之路的</p>
+                                <span class="lv">LV13</span>
+                                <span>2021-04-22</span>
+                            </div>
+                            <div class="ComStar">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                            </div>
+                            <div class="comTxt">
+                                <span>
+                                    <s>书评</s>
+                                    <i><a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=186172727" target="_blank">非常喜欢这些家常菜</a></i>
+                                                                </span>
+                            </div>
+                            <div class="attend">
+                                <a href="javascript:;" btn="like" data-num="2" data-liked="0" data-tid="186172727" data-cid="book_10960166" class="zan click">
+                                    <!--<s class="zan"></s>-->
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/zan.gif" alt="赞">
+                                    <i>2</i>
+                                </a>
+                                <span class="line"></span>
+                                <a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=186172727" class="huifu" target="_blank">
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/hf.gif" alt="回复">
+                                    <i>&nbsp;</i>
+                                </a>
+                                <span class="up" btn="content_hide_more" style="display: none;"><i>收起</i><s></s></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="headImg">
+                            <img src="//pweb.d.ireader.com/static/images/common/touxiang.png" alt="i30****8583">
+                        </span>
+                        <div class="allCom">
+                            <div class="ComMan">
+                                <p>i30****8583</p>
+                                <span class="lv">LV7</span>
+                                <span>2021-08-05</span>
+                            </div>
+                            <div class="ComStar">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                            </div>
+                            <div class="comTxt">
+                                <span>
+                                    <s>书评</s>
+                                    <i><a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=189397166" target="_blank">好书，不错学了一召</a></i>
+                                                                </span>
+                            </div>
+                            <div class="attend">
+                                <a href="javascript:;" btn="like" data-num="2" data-liked="0" data-tid="189397166" data-cid="book_10960166" class="zan click">
+                                    <!--<s class="zan"></s>-->
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/zan.gif" alt="赞">
+                                    <i>2</i>
+                                </a>
+                                <span class="line"></span>
+                                <a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=189397166" class="huifu" target="_blank">
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/hf.gif" alt="回复">
+                                    <i>&nbsp;</i>
+                                </a>
+                                <span class="up" btn="content_hide_more" style="display: none;"><i>收起</i><s></s></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="headImg">
+                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_300,h_400/dcb201f8/group6/M00/CD/D7/CmQUNljFKXqER2EsAAAAAM1mmTU117138139.jpg?v=XMqo5yKg" alt="爱笑女孩">
+                        </span>
+                        <div class="allCom">
+                            <div class="ComMan">
+                                <p>爱笑女孩</p>
+                                <span class="lv">LV6</span>
+                                <span>2017-08-20</span>
+                            </div>
+                            <div class="ComStar">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                            </div>
+                            <div class="comTxt">
+                                <span>
+                                    <s>书评</s>
+                                    <i><a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=100255871" target="_blank">很喜欢，简单易学</a></i>
+                                                                </span>
+                            </div>
+                            <div class="attend">
+                                <a href="javascript:;" btn="like" data-num="3" data-liked="0" data-tid="100255871" data-cid="book_10960166" class="zan click">
+                                    <!--<s class="zan"></s>-->
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/zan.gif" alt="赞">
+                                    <i>3</i>
+                                </a>
+                                <span class="line"></span>
+                                <a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=100255871" class="huifu" target="_blank">
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/hf.gif" alt="回复">
+                                    <i>&nbsp;</i>
+                                </a>
+                                <span class="up" btn="content_hide_more" style="display: none;"><i>收起</i><s></s></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="headImg">
+                            <img src="https://fs-uc-nearme-com-cn.oss-cn-hangzhou.aliyuncs.com/291/280/661/166082192.jpg" alt="182******73">
+                        </span>
+                        <div class="allCom">
+                            <div class="ComMan">
+                                <p>182******73</p>
+                                <span class="lv">LV10</span>
+                                <span>2016-09-06</span>
+                            </div>
+                            <div class="ComStar">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                                <img src="//pweb.d.ireader.com/static/images/sjxq/yStar.png">
+                            </div>
+                            <div class="comTxt">
+                                <span>
+                                    <s>书评</s>
+                                    <i><a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=40389783" target="_blank">很不错的一本书</a></i>
+                                                                </span>
+                            </div>
+                            <div class="attend">
+                                <a href="javascript:;" btn="like" data-num="4" data-liked="0" data-tid="40389783" data-cid="book_10960166" class="zan click">
+                                    <!--<s class="zan"></s>-->
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/zan.gif" alt="赞">
+                                    <i>4</i>
+                                </a>
+                                <span class="line"></span>
+                                <a href="https://www.ireader.com/index.php?ca=Sns_Topic.Comment&amp;pca=bookdetail.index&amp;cid=book_10960166&amp;tid=40389783" class="huifu" target="_blank">
+                                    <img src="//pweb.d.ireader.com/static/images/sjxq/hf.gif" alt="回复">
+                                    <i>&nbsp;</i>
+                                </a>
+                                <span class="up" btn="content_hide_more" style="display: none;"><i>收起</i><s></s></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="load">
+                    <p class="loadMore"><a href="https://www.ireader.com/index.php?ca=Sns_Topic.Index&amp;pca=bookdetail.index&amp;cid=book_10960166" target="_blank">查看更多</a></p>
+                    <!--<p class="loading"><s></s>加载更多...</p>-->
+                </div>
+            </div>
+
+        </div>
+
+        <!--右侧内容 开始-->
+        <div class="conR">
+            <div class="seen">
+                <div class="seeTit">
+                    <span class="title">看过的人还看</span>
+                    <div class="btn" btn="relate_book_show_more">
+                        <span class="btnL"><s></s></span>
+                        <span class="btnR"><s></s></span>
+                    </div>
+                </div>
+                <div class="seeWrap" mod="relate_book_list">
+                    <ul>
+                        <li>                            <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11128617" target="_blank">
+                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_105,h_140,q_100/0e6c49d5/group6/M00/12/E0/CmRaIVfROqqEXYUrAAAAAC6fRzw810042217.jpg?v=SO5o27Zx&amp;t=CmRaIVlnMjk." alt="小炒一本就够">
+                        </a>
+                            <p class="bookNume">
+                                <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11128617" target="_blank">小炒一本就够</a>
+                            </p>
+                            <p class="author">尚锦文化</p>
+                            <span><s></s>5</span>
+                            <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11246660" target="_blank">
+                                <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_105,h_140,q_100/0d66e2cb/group6/M00/6B/6A/CmQUOVhzhZWEVj5_AAAAAAQrqnI834120924.jpg?v=wZJ2F6Qa&amp;t=CmQUNl6ItgM." alt="家常湘菜1000例">
+                            </a>
+                            <p class="bookNume">
+                                <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11246660" target="_blank">家常湘菜1000例</a>
+                            </p>
+                            <p class="author">本社编</p>
+                            <span><s></s>2</span>
+                        </li>                                                <li>                            <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10194026" target="_blank">
+                        <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_105,h_140,q_100/304a5af0/group6/M00/26/61/CmQUN1X10SiEaKXfAAAAAEtvVqg056944081.jpg?v=bqgH3exK&amp;t=CmQUN10cFig." alt="我的早餐不重样儿">
+                    </a>
+                        <p class="bookNume">
+                            <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10194026" target="_blank">我的早餐不重样儿</a>
+                        </p>
+                        <p class="author">王其胜</p>
+                        <span><s></s>1</span>
+                        <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11194078" target="_blank">
+                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_105,h_140,q_100/0db6a2ba/group6/M00/22/23/CmRaIVguekqEBCt_AAAAAGp1Cis135066460.jpg?v=yXAA2IE4" alt="美味蔬菜的360种做法">
+                        </a>
+                        <p class="bookNume">
+                            <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11194078" target="_blank">美味蔬菜的360种做法</a>
+                        </p>
+                        <p class="author">甘智荣</p>
+                        <span><s></s>10</span>
+                    </li>                                                <li>                            <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10126629" target="_blank">
+                        <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_105,h_140,q_100/4ccff6d3/group6/M00/1A/D2/CmQUNlX1NUCEHcf4AAAAAB0kKTA585304776.jpg?v=ar45qAAd" alt="经典老菜谱（详步图解版）">
+                    </a>
+                        <p class="bookNume">
+                            <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10126629" target="_blank">经典老菜谱（详步图解版）</a>
+                        </p>
+                        <p class="author">张明亮</p>
+                        <span><s></s>5</span>
+                        <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10126471" target="_blank">
+                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_105,h_140,q_100/1dc4fe57/group6/M00/1A/C8/CmQUNlX1NLeEfC5NAAAAAA71TwA864998247.jpg?v=4xIjqC2D&amp;t=CmQUNlqCSbw." alt="新实用家庭菜谱">
+                        </a>
+                        <p class="bookNume">
+                            <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10126471" target="_blank">新实用家庭菜谱</a>
+                        </p>
+                        <p class="author">《新实用家庭菜谱》编委会</p>
+                        <span><s></s>13</span>
+                    </li>                                                <li>                            <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10954931" target="_blank">
+                        <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_105,h_140,q_100/17879456/group6/M00/36/E9/CmQUN1YYa_aEB4s8AAAAAOvOcE0545803245.jpg?v=Lg5opAdu" alt="够味儿：80道经典家常菜烹饪详解">
+                    </a>
+                        <p class="bookNume">
+                            <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10954931" target="_blank">够味儿：80道经典家常菜烹饪详解</a>
+                        </p>
+                        <p class="author">罗生堂</p>
+                        <span><s></s>6</span>
+                        <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11544507" target="_blank">
+                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_105,h_140,q_100/9c37fc0a/group6/M00/70/72/CmRaIVuFZQmEfINbAAAAAA5qMP4295423950.jpg?v=rigHSK11&amp;t=CmQUNmEQ4AI." alt="包子饺子">
+                        </a>
+                        <p class="bookNume">
+                            <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11544507" target="_blank">包子饺子</a>
+                        </p>
+                        <p class="author">原味小厨编委会</p>
+                        <span><s></s>4</span>
+                    </li>                                                <li>                            <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11826686" target="_blank">
+                        <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_105,h_140,q_100/095a5656/group61/M00/E9/2B/CmQUOF0cH3mEF9VjAAAAALxicug818368727.jpg?v=aF981mG2&amp;t=CmQUOF0cH3k." alt="早餐 晚餐">
+                    </a>
+                        <p class="bookNume">
+                            <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11826686" target="_blank">早餐 晚餐</a>
+                        </p>
+                        <p class="author">李光健</p>
+                        <span><s></s>2</span>
+                        <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11487915" target="_blank">
+                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_105,h_140,q_100/d1a8256b/group6/M00/89/E2/CmQUOFkejl2EeWktAAAAAD3GOEM223398923.jpg?v=D_IwI1g2&amp;t=CmQUOFkemFY." alt="卤味大全">
+                        </a>
+                        <p class="bookNume">
+                            <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11487915" target="_blank">卤味大全</a>
+                        </p>
+                        <p class="author">戈非</p>
+                        <span><s></s>10</span>
+                    </li>                                                <li>                            <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=12046400" target="_blank">
+                        <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_105,h_140,q_100/13cfbaf2/group61/M00/A1/A3/CmQUOV4kZ3GEc7c2AAAAAFJqVpo324194913.jpg?v=X3DMVFOX&amp;t=CmQUOV4kZ3E." alt="中式面食入门">
+                    </a>
+                        <p class="bookNume">
+                            <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=12046400" target="_blank">中式面食入门</a>
+                        </p>
+                        <p class="author">馨月</p>
+                        <span><s></s>7</span>
+                        <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11736807" target="_blank">
+                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_105,h_140,q_100/093b9c9c/group61/M00/85/35/CmQUOFyF9xqEIIVrAAAAAN_qX7k233919610.jpg?v=y_WUu4F_&amp;t=CmQUOFyF9xo." alt="大厨必备调味汁制作大全">
+                        </a>
+                        <p class="bookNume">
+                            <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11736807" target="_blank">大厨必备调味汁制作大全</a>
+                        </p>
+                        <p class="author">牛国平</p>
+                        <span><s></s>1</span>
+                    </li>                                            </ul>
+                </div>
+            </div>
+
+            <div class="showRight">
+                <h3>同类热销榜</h3>
+                <ul>
+                    <li class="onShow" onmouseover="$(this).addClass('onShow').siblings().removeClass('onShow');">
+                        <dl class="close">
+                            <dt>1</dt>
+                            <dd>
+                                <span class="bookName">
+                                    <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10880305" target="_blank" title="一学就会的家常川菜158例[精品]">一学就会的家常川菜158例[精品]</a>
+                                </span>
+                                <span class="num"><s></s>112</span>
+                            </dd>
+                        </dl>
+                        <dl class="open">
+                            <dt>1</dt>
+                            <dd>
+                                <div>
+                                    <span class="bookPic">
+                                        <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10880305" target="_blank" title="一学就会的家常川菜158例[精品]">
+                                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_105,h_140,q_100/330925bc/group6/M00/2C/D2/CmQUNlX2KOuEDr-uAAAAAFcEs50636605761.jpg?v=ZdWXbdjn&amp;t=CmQUNmEQrkw." alt="一学就会的家常川菜158例[精品]">
+                                        </a>
+                                    </span>
+                                    <div class="bookCon">
+                                        <p><a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10880305" target="_blank" title="一学就会的家常川菜158例[精品]">一学就会的家常川菜158例[精品]</a></p>
+                                        <span class="num"><s></s>112</span>
+                                    </div>
+                                </div>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li onmouseover="$(this).addClass('onShow').siblings().removeClass('onShow');">
+                        <dl class="close">
+                            <dt>2</dt>
+                            <dd>
+                                <span class="bookName">
+                                    <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10880382" target="_blank" title="家常好吃下饭菜158例[精品]">家常好吃下饭菜158例[精品]</a>
+                                </span>
+                                <span class="num"><s></s>26</span>
+                            </dd>
+                        </dl>
+                        <dl class="open">
+                            <dt>2</dt>
+                            <dd>
+                                <div>
+                                    <span class="bookPic">
+                                        <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10880382" target="_blank" title="家常好吃下饭菜158例[精品]">
+                                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_105,h_140,q_100/4cbefa58/group6/M00/2C/D4/CmQUNlX2KQqEAcjgAAAAAJdo8kw936897360.jpg?v=joclMxAe" alt="家常好吃下饭菜158例[精品]">
+                                        </a>
+                                    </span>
+                                    <div class="bookCon">
+                                        <p><a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10880382" target="_blank" title="家常好吃下饭菜158例[精品]">家常好吃下饭菜158例[精品]</a></p>
+                                        <span class="num"><s></s>26</span>
+                                    </div>
+                                </div>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li onmouseover="$(this).addClass('onShow').siblings().removeClass('onShow');">
+                        <dl class="close">
+                            <dt>3</dt>
+                            <dd>
+                                <span class="bookName">
+                                    <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10880309" target="_blank" title="营养美味一碗面[精品]">营养美味一碗面[精品]</a>
+                                </span>
+                                <span class="num"><s></s>30</span>
+                            </dd>
+                        </dl>
+                        <dl class="open">
+                            <dt>3</dt>
+                            <dd>
+                                <div>
+                                    <span class="bookPic">
+                                        <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10880309" target="_blank" title="营养美味一碗面[精品]">
+                                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_105,h_140,q_100/04744fd3/group6/M00/2C/D2/CmQUN1X2KO2EWN-_AAAAAEp4WqU314497972.jpg?v=UAIS8WCa&amp;t=CmQUN2EQrkE." alt="营养美味一碗面[精品]">
+                                        </a>
+                                    </span>
+                                    <div class="bookCon">
+                                        <p><a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10880309" target="_blank" title="营养美味一碗面[精品]">营养美味一碗面[精品]</a></p>
+                                        <span class="num"><s></s>30</span>
+                                    </div>
+                                </div>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li onmouseover="$(this).addClass('onShow').siblings().removeClass('onShow');">
+                        <dl class="close">
+                            <dt>4</dt>
+                            <dd>
+                                <span class="bookName">
+                                    <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10194026" target="_blank" title="我的早餐不重样儿[精品]">我的早餐不重样儿[精品]</a>
+                                </span>
+                                <span class="num"><s></s>30</span>
+                            </dd>
+                        </dl>
+                        <dl class="open">
+                            <dt>4</dt>
+                            <dd>
+                                <div>
+                                    <span class="bookPic">
+                                        <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10194026" target="_blank" title="我的早餐不重样儿[精品]">
+                                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_105,h_140,q_100/304a5af0/group6/M00/26/61/CmQUN1X10SiEaKXfAAAAAEtvVqg056944081.jpg?v=bqgH3exK&amp;t=CmQUN10cFig." alt="我的早餐不重样儿[精品]">
+                                        </a>
+                                    </span>
+                                    <div class="bookCon">
+                                        <p><a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10194026" target="_blank" title="我的早餐不重样儿[精品]">我的早餐不重样儿[精品]</a></p>
+                                        <span class="num"><s></s>30</span>
+                                    </div>
+                                </div>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li onmouseover="$(this).addClass('onShow').siblings().removeClass('onShow');">
+                        <dl class="close">
+                            <dt>5</dt>
+                            <dd>
+                                <span class="bookName">
+                                    <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10954931" target="_blank" title="够味儿：80道经典家常菜烹饪详解[精品]">够味儿：80道经典家常菜烹饪详解[精品]</a>
+                                </span>
+                                <span class="num"><s></s>30</span>
+                            </dd>
+                        </dl>
+                        <dl class="open">
+                            <dt>5</dt>
+                            <dd>
+                                <div>
+                                    <span class="bookPic">
+                                        <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10954931" target="_blank" title="够味儿：80道经典家常菜烹饪详解[精品]">
+                                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_105,h_140,q_100/17879456/group6/M00/36/E9/CmQUN1YYa_aEB4s8AAAAAOvOcE0545803245.jpg?v=Lg5opAdu" alt="够味儿：80道经典家常菜烹饪详解[精品]">
+                                        </a>
+                                    </span>
+                                    <div class="bookCon">
+                                        <p><a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10954931" target="_blank" title="够味儿：80道经典家常菜烹饪详解[精品]">够味儿：80道经典家常菜烹饪详解[精品]</a></p>
+                                        <span class="num"><s></s>30</span>
+                                    </div>
+                                </div>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li onmouseover="$(this).addClass('onShow').siblings().removeClass('onShow');">
+                        <dl class="close">
+                            <dt>6</dt>
+                            <dd>
+                                <span class="bookName">
+                                    <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11092113" target="_blank" title="美食百科[精品]">美食百科[精品]</a>
+                                </span>
+                                <span class="num"><s></s>7</span>
+                            </dd>
+                        </dl>
+                        <dl class="open">
+                            <dt>6</dt>
+                            <dd>
+                                <div>
+                                    <span class="bookPic">
+                                        <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11092113" target="_blank" title="美食百科[精品]">
+                                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_105,h_140,q_100/aba0048f/group6/M00/40/44/CmQUOFePSNqELNLCAAAAAAQ4Qe0729595349.jpg?v=FNiAIvW3" alt="美食百科[精品]">
+                                        </a>
+                                    </span>
+                                    <div class="bookCon">
+                                        <p><a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11092113" target="_blank" title="美食百科[精品]">美食百科[精品]</a></p>
+                                        <span class="num"><s></s>7</span>
+                                    </div>
+                                </div>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li onmouseover="$(this).addClass('onShow').siblings().removeClass('onShow');">
+                        <dl class="close">
+                            <dt>7</dt>
+                            <dd>
+                                <span class="bookName">
+                                    <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11487915" target="_blank" title="卤味大全[精品]">卤味大全[精品]</a>
+                                </span>
+                                <span class="num"><s></s>33</span>
+                            </dd>
+                        </dl>
+                        <dl class="open">
+                            <dt>7</dt>
+                            <dd>
+                                <div>
+                                    <span class="bookPic">
+                                        <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11487915" target="_blank" title="卤味大全[精品]">
+                                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_105,h_140,q_100/d1a8256b/group6/M00/89/E2/CmQUOFkejl2EeWktAAAAAD3GOEM223398923.jpg?v=D_IwI1g2&amp;t=CmQUOFkemFY." alt="卤味大全[精品]">
+                                        </a>
+                                    </span>
+                                    <div class="bookCon">
+                                        <p><a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11487915" target="_blank" title="卤味大全[精品]">卤味大全[精品]</a></p>
+                                        <span class="num"><s></s>33</span>
+                                    </div>
+                                </div>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li onmouseover="$(this).addClass('onShow').siblings().removeClass('onShow');">
+                        <dl class="close">
+                            <dt>8</dt>
+                            <dd>
+                                <span class="bookName">
+                                    <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10147688" target="_blank" title="梅酒香螺嘬嘬菜[精品]">梅酒香螺嘬嘬菜[精品]</a>
+                                </span>
+                                <span class="num"><s></s>12</span>
+                            </dd>
+                        </dl>
+                        <dl class="open">
+                            <dt>8</dt>
+                            <dd>
+                                <div>
+                                    <span class="bookPic">
+                                        <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10147688" target="_blank" title="梅酒香螺嘬嘬菜[精品]">
+                                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_105,h_140,q_100/50bee2f4/group6/M00/1E/5C/CmQUNlX1ZIyEM1kuAAAAAGvVQJI810291190.jpg?v=0cNy1KWV" alt="梅酒香螺嘬嘬菜[精品]">
+                                        </a>
+                                    </span>
+                                    <div class="bookCon">
+                                        <p><a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10147688" target="_blank" title="梅酒香螺嘬嘬菜[精品]">梅酒香螺嘬嘬菜[精品]</a></p>
+                                        <span class="num"><s></s>12</span>
+                                    </div>
+                                </div>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li onmouseover="$(this).addClass('onShow').siblings().removeClass('onShow');">
+                        <dl class="close">
+                            <dt>9</dt>
+                            <dd>
+                                <span class="bookName">
+                                    <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11225257" target="_blank" title="家常菜·烘焙·主食·饮品大全[精品]">家常菜·烘焙·主食·饮品大全[精品]</a>
+                                </span>
+                                <span class="num"><s></s>11</span>
+                            </dd>
+                        </dl>
+                        <dl class="open">
+                            <dt>9</dt>
+                            <dd>
+                                <div>
+                                    <span class="bookPic">
+                                        <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11225257" target="_blank" title="家常菜·烘焙·主食·饮品大全[精品]">
+                                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_105,h_140,q_100/de67c681/group6/M00/70/D3/CmQUOVijtraEFR7VAAAAALU_7X4546239734.jpg?v=U4jtQVzQ" alt="家常菜·烘焙·主食·饮品大全[精品]">
+                                        </a>
+                                    </span>
+                                    <div class="bookCon">
+                                        <p><a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=11225257" target="_blank" title="家常菜·烘焙·主食·饮品大全[精品]">家常菜·烘焙·主食·饮品大全[精品]</a></p>
+                                        <span class="num"><s></s>11</span>
+                                    </div>
+                                </div>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li onmouseover="$(this).addClass('onShow').siblings().removeClass('onShow');">
+                        <dl class="close">
+                            <dt>10</dt>
+                            <dd>
+                                <span class="bookName">
+                                    <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10960166" target="_blank" title="快手家常菜[精品]">快手家常菜[精品]</a>
+                                </span>
+                                <span class="num"><s></s>39</span>
+                            </dd>
+                        </dl>
+                        <dl class="open">
+                            <dt>10</dt>
+                            <dd>
+                                <div>
+                                    <span class="bookPic">
+                                        <a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10960166" target="_blank" title="快手家常菜[精品]">
+                                            <img src="https://bookbk.img.zhangyue01.com/idc_1/m_1,w_105,h_140,q_100/8cfa6ea6/group6/M00/6F/F6/CmQUN1bMTFGEcGQGAAAAAFUAdPI933975877.jpg?v=_4yimw3n&amp;t=CmQUN2JGcHg." alt="快手家常菜[精品]">
+                                        </a>
+                                    </span>
+                                    <div class="bookCon">
+                                        <p><a href="https://www.ireader.com/index.php?ca=bookdetail.index&amp;pca=bookdetail.index&amp;bid=10960166" target="_blank" title="快手家常菜[精品]">快手家常菜[精品]</a></p>
+                                        <span class="num"><s></s>39</span>
+                                    </div>
+                                </div>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <!--右侧内容 结束-->
+    </div>
+    <!--书圈 结束-->
+
+</div>
+
+<iframe
+        src="../common/end.html"
+        frameborder="10"
+        heighe="200"
+        width="100%"
+        scrolling="no"
+></iframe>
+
+
+
+<script>
+    var n1_login = new Vue({
+        el:'#n1_login',
+        data:{
+            userLoggedIn:false,
+            showDropdown:false,
+            username:''
+        },
+        created(){
+            // 钩子函数 该方法在页面显示后，自动执行
+            axios.post("/user/sign",).then(res =>{
+                if(res.data.success === true){
+                    this.userLoggedIn = true;
+                    this.showDropdown = true;
+                    this.username = res.data.data;
+                }else{
+                    this.userLoggedIn = false;
+                    this.showDropdown = false;
+                }
+            })
+        },
+        methods:{
+            goToLoginPage(){
+                window.location.href = 'login.html';
+                // this.userLoggedIn = true;
+                // this.showDropdown = true;
+                // this.username = "fangyaohui";
+            },
+            logout(){
+                this.userLoggedIn = false;
+                this.showDropdown = false;
+                this.username = '';
+                axios.post("/user/signout");
+                // window.location.href = 'navbar.html';
+            }
+        }
+    })
+
+    var bookInfor = new Vue({
+        el:'#bookInfor',
+        data:{
+            bookid:'',
+        },
+        created(){
+            const urlParams = new URLSearchParams(window.location.search);
+            this.bookid = urlParams.get("bookid");
+            console.log(this.bookid);
+            // this.bookid = this.$route.query.bookid;
+            // console.log(this.bookid);
+            axios.post("/book/getbook",{id:this.bookid}).then(res =>{
+
+            });
+        }
+    })
+</script>
+
+</body>
+
+
+
+</html>
