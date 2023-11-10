@@ -6,4 +6,6 @@ import com.fang.screwbookstore.entity.Book;
 
 public interface BookService extends IService<Book> {
     Result queryBookByX(String s);
+
+    Result queryBookById(int id);
 }

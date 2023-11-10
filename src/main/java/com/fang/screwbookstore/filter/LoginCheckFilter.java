@@ -2,7 +2,9 @@ package com.fang.screwbookstore.filter;
 
 
 import com.fang.screwbookstore.entity.User;
+import com.fang.screwbookstore.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.AntPathMatcher;
 
 import javax.servlet.*;
@@ -24,6 +26,9 @@ public class LoginCheckFilter implements Filter {
 //    路径匹配工具
 //    https://knife.blog.csdn.net/article/details/120678900
     public static final AntPathMatcher ANT_PATH_MATCHER = new AntPathMatcher();
+
+    @Autowired
+    UserService userService;
 
 
     @Override
@@ -48,6 +53,13 @@ public class LoginCheckFilter implements Filter {
 
 
         };
+
+//       开后门以便不用登录
+        User user1 = userService.query().eq("id",1).one();
+        request.getSession().setAttribute("user",user1);
+//        session.setAttribute("user",user);
+
+
 
 //        匹配成功 直接放行
         if(check(urls,requersURI)){

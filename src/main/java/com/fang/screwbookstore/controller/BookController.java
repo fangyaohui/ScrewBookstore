@@ -2,7 +2,9 @@ package com.fang.screwbookstore.controller;
 
 import com.fang.screwbookstore.common.Result;
 import com.fang.screwbookstore.entity.Book;
+import com.fang.screwbookstore.service.BookService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/book")
 public class BookController {
 
+    @Autowired
+    private BookService bookService;
 
     /**
      * 该函数功能：
@@ -31,9 +35,10 @@ public class BookController {
     @RequestMapping("/getbook")
     public Result getbook(@RequestBody Book book){
 
-        log.info("bookid :" + book.getId());
+        log.info("查询bookid :" + book.getId());
 
-        return Result.ok();
+        return bookService.queryBookById(book.getId());
+
     }
 
 }

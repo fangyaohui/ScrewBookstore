@@ -23,7 +23,7 @@ public class TbBookexpand implements Serializable {
 
     private Integer iscoupon;
 
-    private Integer buynun;
+    private Integer buynum;
 
     private Integer grade;
 

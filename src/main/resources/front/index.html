@@ -109,13 +109,13 @@
         <div class="pubBook" id="pubBook">
           <div class="conBigTitle">
             <h2>热门图书</h2>
-            <p><a href="#" target="_blank"></a></p>
+            <p><a target="_blank"></a></p>
           </div>
           <div class="show">
             <s class="sign"></s>
             <div class="showLeft">
               <h3>
-                <a href="" :title=pubbook[0].bookname target="_blank">{{pubbook[0].bookname}}</a>
+                <a :title=pubbook[0].bookname target="_blank" v-on:click="bookinfo1(pubbook[0].id)">{{pubbook[0].bookname}}</a>
               </h3>
               <p class="author">作者: {{ pubbook[0].author }}</p>
               <p class="introduce">
@@ -123,9 +123,9 @@
               </p>
               <span>
                 <a
-                  href=""
                   target="_blank"
                   :title=pubbook[0].bookname
+                  v-on:click="bookinfo1(pubbook[0].id)"
                 >
                   <img
                     :src=pubbook[0].imgpath
@@ -139,9 +139,9 @@
             <ul class="showMid">
               <li v-for="item in pubbook.slice(1,5)">
                 <a
-                  href="#"
                   target="_blank"
                   :title=item.author
+                  v-on:click="bookinfo1(item.id)"
                 >
                   <img
                     :src=item.imgpath
@@ -152,9 +152,9 @@
                 </a>
                 <p class="bookName">
                   <a
-                    href="#"
                     :title=item.bookname
                     target="_blank"
+                    v-on:click="bookinfo1(item.id)"
                     >{{item.bookname}}}</a>
                 </p>
                 <p>{{ item.author }}</p>
@@ -163,7 +163,7 @@
             </ul>
             <div class="showRight">
               <h3>
-                <s class="crown"></s><a href="" target="_blank">畅销榜</a>
+                <s class="crown"></s><a target="_blank">畅销榜</a>
               </h3>
               <ul>
                 <!-- 循环13次 -->
@@ -173,9 +173,9 @@
                     <dd>
                       <span class="bookName">
                         <a
-                          href="#"
                           :title=item.bookname
                           target="_blank"
+                          v-on:click="bookinfo1(item.id)"
                           >{{item.bookname}}</a
                         >
                       </span>
@@ -200,9 +200,9 @@
             <div class="showLeft">
               <h3>
                 <a
-                  href=""
                   :title=cheapbook[0].bookname
                   target="_blank"
+                  v-on:click="bookinfo1(cheapbook[0].id)"
                   >{{cheapbook[0].bookname}}</a
                 >
               </h3>
@@ -212,9 +212,9 @@
               </p>
               <span>
                 <a
-                  href=""
                   target="_blank"
                   :title=cheapbook[0].bookname
+                  v-on:click="bookinfo1(cheapbook[0].id)"
                 >
                   <img
                     :src=cheapbook[0].imgpath
@@ -229,9 +229,9 @@
                 <!-- 循环6次 -->
                 <li v-for="item in cheapbook.slice(1,5)">
                     <a
-                            href="#"
                             target="_blank"
                             :title=item.author
+                            v-on:click="bookinfo1(item.id)"
                     >
                         <img
                                 :src=item.imgpath
@@ -242,7 +242,7 @@
                     </a>
                     <p class="bookName">
                         <a
-                                href="#"
+                                v-on:click="bookinfo1(item.id)"
                                 :title=item.bookname
                                 target="_blank"
                         >{{item.bookname}}}</a>
@@ -254,7 +254,7 @@
               <h3>
                 <s class="crown"></s
                 ><a
-                  href=""
+
                   target="_blank"
                   >特价榜</a
                 >
@@ -267,9 +267,9 @@
                           <dd>
                       <span class="bookName">
                         <a
-                                href="#"
                                 :title=item.bookname
                                 target="_blank"
+                                v-on:click="bookinfo1(item.id)"
                         >{{item.bookname}}</a
                         >
                       </span>
@@ -287,13 +287,13 @@
         <div class="pubBook" id="goodBook">
           <div class="conBigTitle">
               <h2>好评图书</h2>
-              <p><a href="#" target="_blank"></a></p>
+              <p><a  target="_blank"></a></p>
           </div>
           <div class="show">
               <s class="sign"></s>
               <div class="showLeft">
                   <h3>
-                      <a href="" :title=goodbook[0].bookname target="_blank">{{goodbook[0].bookname}}</a>
+                      <a  :title=goodbook[0].bookname target="_blank" v-on:click="bookinfo1(goodbook[0].id)">{{goodbook[0].bookname}}</a>
                   </h3>
                   <p class="author">作者: {{ goodbook[0].author }}</p>
                   <p class="introduce">
@@ -301,9 +301,9 @@
                   </p>
                   <span>
             <a
-                    href=""
                     target="_blank"
                     :title=goodbook[0].bookname
+                    v-on:click="bookinfo1(goodbook[0].id)"
             >
               <img
                       :src=goodbook[0].imgpath
@@ -317,9 +317,9 @@
               <ul class="showMid">
                   <li v-for="item in goodbook.slice(1,5)">
                       <a
-                              href="#"
                               target="_blank"
                               :title=item.author
+                              v-on:click="bookinfo1(item.id)"
                       >
                           <img
                                   :src=item.imgpath
@@ -330,7 +330,7 @@
                       </a>
                       <p class="bookName">
                           <a
-                                  href="#"
+                                  v-on:click="bookinfo1(item.id)"
                                   :title=item.bookname
                                   target="_blank"
                           >{{item.bookname}}}</a>
@@ -351,9 +351,10 @@
                               <dd>
                   <span class="bookName">
                     <a
-                            href="#"
+
                             :title=item.bookname
                             target="_blank"
+                            v-on:click="bookinfo1(item.id)"
                     >{{item.bookname}}</a
                     >
                   </span>
@@ -516,6 +517,18 @@
             }).catch(err => {
                 console.log(err);
             })
+        },
+        methods:{
+            bookinfo1(id){
+                console.log(id);
+                window.location.href = "page/bookinfo.html?bookid="+id;
+                // this.$router.push({
+                //     path:"/page/bookinfo",
+                //     params:{
+                //         bookid:id
+                //     }
+                // });
+            }
         }
     })
 

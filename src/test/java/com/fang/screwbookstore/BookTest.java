@@ -1,5 +1,6 @@
 package com.fang.screwbookstore;
 
+import com.fang.screwbookstore.dto.BookDto;
 import com.fang.screwbookstore.utils.BookUtils;
 import com.fang.screwbookstore.common.Result;
 import com.fang.screwbookstore.entity.Book;
@@ -35,6 +36,14 @@ public class BookTest {
     public void queryBookByXTest(){
         Result bookList =  bookService.queryBookByX("buynum");
         System.out.println(bookList.toString());
+    }
+
+    @Test
+    public void queryBookByIdTest(){
+        int id = 1;
+        Result data = bookService.queryBookById(id);
+        BookDto bookdto = (BookDto) data.getData();
+        System.out.println(bookdto.toString());
     }
 
 }

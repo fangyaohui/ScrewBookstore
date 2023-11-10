@@ -77,32 +77,33 @@
 <!--书籍内容开始-->
 <div class="content">
 
-    <div class="bookInfor" id="bookInfor">
+    <div class="bookInfor" id="bookInfor" >
         <div class="bookL">
-            <s>美食菜谱</s>
+            <s v-text="bookinfo.bookname"></s>
             <a>
-                <img src="" alt="快手家常菜" title="快手家常菜">
+                <img :src=bookinfo.imgpath :alt=bookinfo.bookname :title=bookinfo.bookname>
             </a>
-            <img src="" alt="" class="shadow">
+<!--            <img src="" alt="" class="shadow">-->
         </div>
         <div class="bookR">
             <div class="bookinf01">
                 <div class="bookname">
-                    <h2><a>快手家常菜</a></h2>
-                    <span>8.6</span>                </div>
+                    <h2><a v-text="bookinfo.bookname"></a></h2>
+                    <span>{{bookinfo.tbBookexpand.grade}} 分</span>
+                </div>
                 <p>
-                    <span class="author" style="margin-right: 12px;">作者：饮食生活编委会</span>
-                    <span style="margin-right: 12px;">字数：8.7万字</span>
-                    <span>出版社：吉林科技出版社</span>
-                    <span class="manyMan">37人评分</span>                                    </p>
+                    <span class="author" style="margin-right: 12px;" >作者:{{bookinfo.author}}</span>
+                    <span class="author" style="margin-right: 12px;">购买人数：{{bookinfo.tbBookexpand.buynum}} 人</span>
+                    <span class="manyMan" >评分人数:{{bookinfo.tbBookexpand.gradenum}} 人</span>
+                </p>
             </div>
             <div class="bookinf02">
                 <div class="left">
                     <p>
-                        <i class="price">价格：1000阅饼</i>
+                        <i class="price">价格：{{bookinfo.tbBookexpand.price}} 元</i>
                     </p>
 
-                    <a href="" target="_blank" data-js="readNow" class="readNow"><span class="tryRead">免费试读</span></a>
+                    <a href="" target="_blank" data-js="readNow" class="readNow"><span class="tryRead">加入购物车</span></a>
                     <span class="buyBook" data-js="viewall">
                         购买
                     </span>
@@ -117,18 +118,17 @@
                 </div>
             </div>
             <div class="bookinf03">
-                <p>
-                    想不想又快又简单地做出美味家常菜？没问题，《快手家常菜》包教包会！　　《快手家常菜》专为工作忙碌的上班族准备，精选100余道菜品，将很受欢迎的各式小炒，如素菜小炒，肉禽蛋类小炒，河海鲜小炒等当下时尚菜一应囊括，更加入超简单凉拌菜，不费时熬煮的汤等超有人气的美食。书中的每道菜都经过小编的严格验证，保证是好吃又简单，省时又营养的业界口碑菜，更特别加入快手tips，助你轻松快速搞定家常菜。同时，《快手家常菜》加入营养一周早中晚三餐健康搭配速查和聚餐菜肴搭配推荐，让你真正一书在手，做饭不愁。                </p>
+                <p v-text="bookinfo.bookabstract"></p>
                 <div class="shareWrap">
-                    <div class="share" style="display: none;">
-                        <a href="javascript:;" class="weibo">
-                            <img src="//pweb.d.ireader.com/static/images/rank/weibo.png" _hover_src="//pweb.d.ireader.com/static/images/rank/weiboHov.png" alt="weibo">
-                        </a>
-                        <a href="javascript:;">
-                            <img src="//pweb.d.ireader.com/static/images/rank/qq.png" _hover_src="//pweb.d.ireader.com/static/images/rank/qqHov.png" alt="qq">
-                        </a>
-                    </div>
-                    <span><a href="javascript:;" btn="desc_show_more">展开<s></s></a></span>
+<!--                    <div class="share" style="display: none;">-->
+<!--                        <a href="javascript:;" class="weibo">-->
+<!--                            <img src="//pweb.d.ireader.com/static/images/rank/weibo.png" _hover_src="//pweb.d.ireader.com/static/images/rank/weiboHov.png" alt="weibo">-->
+<!--                        </a>-->
+<!--                        <a href="javascript:;">-->
+<!--                            <img src="//pweb.d.ireader.com/static/images/rank/qq.png" _hover_src="//pweb.d.ireader.com/static/images/rank/qqHov.png" alt="qq">-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                    <span><a href="javascript:;" btn="desc_show_more">展开<s></s></a></span>-->
                 </div>
             </div>
         </div>
@@ -1139,6 +1139,7 @@
         el:'#bookInfor',
         data:{
             bookid:'',
+            bookinfo:[],
         },
         created(){
             const urlParams = new URLSearchParams(window.location.search);
@@ -1147,7 +1148,12 @@
             // this.bookid = this.$route.query.bookid;
             // console.log(this.bookid);
             axios.post("/book/getbook",{id:this.bookid}).then(res =>{
-
+                    if(res.data.success === true){
+                        console.log(res.data.data)
+                        this.bookinfo = res.data.data;
+                        console.log(this.bookinfo);
+                        // console.log(res.data.data.tbBookexpand)
+                    }
             });
         }
     })
