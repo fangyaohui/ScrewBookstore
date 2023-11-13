@@ -2,13 +2,15 @@ package com.fang.screwbookstore.controller;
 
 import com.fang.screwbookstore.common.Result;
 import com.fang.screwbookstore.entity.Book;
+import com.fang.screwbookstore.entity.Comment;
 import com.fang.screwbookstore.service.BookService;
+import com.fang.screwbookstore.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 /**
  * 类说明：
@@ -25,6 +27,9 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    @Autowired
+    private CommentService commentService;
+
     /**
      * 该函数功能：
      *      1、通过前端传来的bookid查找到目标图书信息
@@ -38,6 +43,42 @@ public class BookController {
         log.info("查询bookid :" + book.getId());
 
         return bookService.queryBookById(book.getId());
+
+    }
+
+    /**
+     * 该函数：
+     *      1、为用户添加评论，保存评论
+     * @param requestBody
+     * @param session
+     * @return
+     */
+    @RequestMapping("/addcomment")
+    public Result addcomment(@RequestBody Map<String,String> requestBody,HttpSession session){
+
+        log.info(requestBody.get("comment")+" "+requestBody.get("bookid"));
+
+        return commentService.addcomment(requestBody.get("comment"),Integer.parseInt(requestBody.get("bookid")),session);
+    }
+
+    /**
+     * 该函数：
+     *      1、抓取这本书所有评论 并返回评论集
+     *
+     *
+     * @param map
+     * @return
+     */
+    @RequestMapping("/getcomment")
+    public Result getcomment(@RequestBody Map<String,String> map){
+//        log.info("getcomment：" + comment.getBookId());
+        int page = Integer.parseInt(map.get("page"));
+        int bookid = Integer.parseInt(map.get("bookid"));
+        log.info(page+" " + bookid);
+
+        return commentService.getcomment(bookid,page);
+
+//        return Result.ok();
 
     }
 

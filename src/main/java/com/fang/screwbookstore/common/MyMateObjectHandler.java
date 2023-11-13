@@ -20,6 +20,7 @@ public class MyMateObjectHandler implements MetaObjectHandler {
     public void insertFill(MetaObject metaObject) {
         log.info("插入字段，字段处理成功");
         metaObject.setValue("registerdate", LocalDateTime.now());
+//        metaObject.setValue("time", LocalDateTime.now());
     }
 
     @Override

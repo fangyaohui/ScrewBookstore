@@ -5,4 +5,6 @@ public class SystemConstants {
 
     public static final int BOOK_NUM = 9606;
 
+    public static final int MAX_PAGE_SIZE = 10;
+
 }
