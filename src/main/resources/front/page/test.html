@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/jscript">
+
+        function show(){
+        //显示div
+         document.getElementById("form").style.display="block";
+        //隐藏
+        //document.getElementByID("form").style.display="none";
+
+        var obj={
+          name:'张山',
+          age:'18'
+
+          }
+
+         document.getElementById("name").value = obj.name
+         document.getElementById("age").value = obj.age
+
+         }
+
+         function save(){
+            alert(document.getElementById("name").value)
+            alert(document.getElementById("age").value)
+         }
+
+
+        </script>
+
+<body>
+<button onclick="show()">修改</button>
+<div id ="form" style="display:none;">
+    <div>
+        账号：<input name="name" id="name" />
+    </div>
+    <div>
+        密码：<input name="pass" id="age"/>
+    </div>
+
+    <button onclick="save()">保存</button>
+</div>
+
+
+</body>
+</html>

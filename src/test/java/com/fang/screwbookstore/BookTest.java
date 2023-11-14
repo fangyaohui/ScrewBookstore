@@ -1,7 +1,9 @@
 package com.fang.screwbookstore;
 
 import com.fang.screwbookstore.dto.BookDto;
+import com.fang.screwbookstore.entity.BookType;
 import com.fang.screwbookstore.entity.Comment;
+import com.fang.screwbookstore.service.BookTypeService;
 import com.fang.screwbookstore.service.CommentService;
 import com.fang.screwbookstore.utils.BookUtils;
 import com.fang.screwbookstore.common.Result;
@@ -23,6 +25,9 @@ public class BookTest {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private BookTypeService bookTypeService;
 
     @Test
     public void BookUtilsTest(){
@@ -57,6 +62,12 @@ public class BookTest {
         comment.setBookId(1540);
         Result result = commentService.getcomment(1540,1);
         System.out.println(result.getData().toString());
+    }
+
+    @Test
+    public void queryBookTypeListTest(){
+        List<BookType> booklist = bookTypeService.query().list();
+        System.out.println(booklist.toString());
     }
 
 }
